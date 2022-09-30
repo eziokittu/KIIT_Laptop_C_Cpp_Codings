@@ -1,0 +1,11 @@
+{
+    "code-runner.runInTerminal": true,
+    "code-runner.saveAllFilesBeforeRun": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.clearPreviousOutput": true,
+    "files.associations": {
+        "*.cpp": "cpp",
+        "iostream": "cpp",
+        "vector": "cpp"
+    }
+}
