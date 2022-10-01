@@ -1,53 +1,41 @@
 #include<iostream>
-#include<vector>
+#include<limits>
 using namespace std;
 
-// string smallest(vector <string> arr){
-//     string small=arr[0];
-//     for(int i=1; i<arr.size(); i++){
-//         if(arr[i]<small){
-//             cout << "\narr["<<i<<"] = "<<arr[i];
-//             cout << ", small = "<<small;
-//             small=arr[i];
-//         }
-//     }
-//     return small;
+int Reverse_Integer(int m){
+    long n = m;
 
-// }
+    // if number is negative
+    bool isNegative = false;
+    if (n<0){
+        n*=-1;
+        isNegative = true;
+    }
 
-void Longest_Common_Prefix(vector<string> &arr){
-    bool isflag=false;
-    string st_cmn="";
-    for(int i=0;i<smallest(arr).length() && i<arr.size();i++){
-        char ch=smallest(arr).at(i);
-        for(int k=0;k<arr.size();k++){
-            char m=arr[k].at(i);
-            if (m==ch)
-            {
-                /* code */
-                isflag=true;
-                continue;
-            }
-            else{
-                isflag=false;
-                break;
-            }
-        }
-        if (isflag)
-        {
-        cout<<ch<<endl;
-          st_cmn=st_cmn+ch;
-        }
-        else{
-            break;
-        }
-        
+    // reversing the number
+    long rev=0;
+    while (n>0){
+        rev = (rev*10) + (n%10);
+        n = n/10;
+        if (rev*10 < rev) return 0;
+    }
+
+    // returning
+    if (rev<INT32_MIN || rev>INT32_MAX) return 0;
+    else{
+        if (isNegative) return -rev;
+        else return rev;
     }
 }
 
 int main(){
-    vector <string> str={"kkkielo","kki","kkktilla"};
-    //cout << "\nsmallest string is of lenght - " << smallest(str).length() << "\n";
-    Longest_Common_Prefix(str);
+    cout << Reverse_Integer(54) << endl;
+    cout << Reverse_Integer(-879) << endl;
+    cout << Reverse_Integer(100) << endl;
+    cout << Reverse_Integer(50010) << endl;
+    cout << Reverse_Integer(1234567890) << endl;
+    cout << Reverse_Integer(1234567809) << endl;
+    cout << Reverse_Integer(-2147483648) << endl;
+    
     return 0;
 }
