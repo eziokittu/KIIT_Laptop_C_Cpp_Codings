@@ -1,13 +1,15 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-int main(){
-    int a=10;
-    for (int i=0; i<19; i++){
-        cout << i;
-        a+=i;
-    }
+string Longest_Common_Prefix(vector <string> &arr){
+    string common = arr[arr.size()-1];
 
-    cout <<a;
+    return common;
+}
+
+int main(){
+    vector<string> str = {"aaa1", "aaa2", "aaaaaaa", "aaa3"};
+    cout << Longest_Common_Prefix(str);
     return 0;
 }
