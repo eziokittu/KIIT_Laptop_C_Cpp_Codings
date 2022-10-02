@@ -55,11 +55,18 @@ int removeDuplicates(vector<int>& nums) {
 }
 
 int main(){
+
     vector<int> nums = {1,2,2,3,3,3,4,4,4,4,5,5,5,5,5,6,6};
+
+    // printing before remove of duplicates
     for(int i=0;i<nums.size();i++){
         cout << nums[i] << " ";
     }
-    cout << endl << Remove_Duplicates(nums) << endl;
+
+    // printing the no. of unique elements
+    cout << endl << removeDuplicates(nums) << endl;
+
+    // printing after remove of duplicates
     for(int i=0;i<nums.size();i++){
         cout << nums[i] << " ";
     }
