@@ -12,55 +12,49 @@ using namespace std;
 int romanToInt(string s){
     int sum=0;
     for (int i=0; i<s.length(); i++){
-
+        //cout << "\nSum = " << sum << "s["<<i<<"] = "<<s[i] << endl;
         if (s[i]=='I'){
+            sum += 1;
             if (s[i+1]!='\0'){
                 if (s[i+1]=='V') {
-                    sum += 4;
+                    sum += 3;
                     i+=1;
                 }
                 else if (s[i+1]=='X') {
-                    sum += 9;
+                    sum += 8;
                     i+=1;
                 }
-            }
-            else {
-                sum += 1;
             }
         }
 
         else if (s[i]=='X'){
+            sum += 10;
             if (s[i+1]!='\0'){
                 if (s[i+1]=='L') {
-                    sum += 40;
+                    sum += 30;
                     i+=1;
                 }
                 else if (s[i+1]=='C') {
-                    sum += 90;
+                    sum += 80;
                     i+=1;
                 }
-            }
-            else {
-                sum += 10;
             }
         }
 
         else if (s[i]=='C'){
-            if (s[i+1]!='\0'){
+            sum += 100;
+            if (s[i+1]!='\0'){ 
                 if (s[i+1]=='D') {
-                    sum += 400;
+                    sum += 300;
                     i+=1;
                 }
                 else if (s[i+1]=='M') {
-                    sum += 900;
+                    sum += 800;
                     i+=1;
                 }
             }
-            else {
-                sum += 100;
-            }
         }
-
+        
         else if (s[i]=='V') sum += 5;
         else if (s[i]=='L') sum += 50;
         else if (s[i]=='D') sum += 500;
@@ -70,10 +64,10 @@ int romanToInt(string s){
 }
 
 int main(){
-    cout << endl << romanToInt("M");
+    //cout << endl << romanToInt("M");
     cout << endl << romanToInt("IV");
     cout << endl << romanToInt("XVII");
-    cout << endl << romanToInt("M");
-    cout << endl << romanToInt("M");
+    //cout << endl << romanToInt("M");
+    //cout << endl << romanToInt("M");
     return 0;
 }

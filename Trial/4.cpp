@@ -1,34 +1,12 @@
-#include <iostream>
-#include <vector>
-using namespace std;
-
-string Longest_Common_Prefix(vector <string> &arr){
-    string common;
-    try
-    {
-        // initializing a string 'commom' with the last string element in the array
-        common = arr[arr.size()-1];
-        float flag = 0;
-        // iterating the array fo string
-        for (int i=0; i<arr.size()-1; i++){
-
-            // iterating each letter of each string element
-            for (int j=0; arr[i][j]!='\0'; j++){
-                
-                // comparing letter in 'common' to letter in that element
-                if (common[j] != arr[i][j]) flag++;
+int removeDuplicates(vector<int>& nums) {
+        int insertIndex = 1;
+        for(int i = 1; i < nums.size(); i++){
+            // We skip to next index if we see a duplicate element
+            if(nums[i - 1] != nums[i]) {    
+                // Storing the unique element at insertIndex index and incrementing the insertIndex by 1 
+                nums[insertIndex] = nums[i];     
+                insertIndex++;
             }
         }
+        return insertIndex;
     }
-    catch(exception e)
-    {
-        return "";
-    }
-    return common;
-}
-
-int main(){
-    vector<string> str = {"aaa1", "aaa2", "aaaaaaa", "aaa3"};
-    cout << Longest_Common_Prefix(str);
-    return 0;
-}

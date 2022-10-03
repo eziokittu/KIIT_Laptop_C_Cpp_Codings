@@ -56,11 +56,12 @@ int removeDuplicates(vector<int>& nums) {
 
 int main(){
 
-    vector<int> nums = {1,2,2,3,3,3,4,4,4,4,5,5,5,5,5,6,6};
+    // vector<int> nums = {1,2,2,3,3,3,4,4,4,4,5,5,5,5,5,6,6};
+    // vector<int> nums = {5,5,5,5,5,6,6,7,7,7,8,8,8,8,9};
     // vector<int> nums = {1,8,33,55,286,500,500,767};
     // vector<int> nums = {};
     // vector<int> nums = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-    // vector<int> nums = {10000000,200000000};
+    vector<int> nums = {1,1,2};
 
     // printing before remove of duplicates
     for(int i=0;i<nums.size();i++){
