@@ -1,6 +1,8 @@
 // Leetcode problem - EASY - 26 - Remove duplicates from sorted array (sorted in non-decreasing order)
 // https://leetcode.com/problems/remove-duplicates-from-sorted-array/
 
+// NOT COMPLETED
+
 #include <iostream>
 #include <vector>
 using namespace std;

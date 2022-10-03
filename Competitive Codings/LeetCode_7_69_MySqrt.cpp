@@ -1,3 +1,6 @@
+// LeetCode Problem 69 - My Sqrt
+// https://leetcode.com/problems/sqrtx/
+
 #include <iostream>
 using namespace std;
 
