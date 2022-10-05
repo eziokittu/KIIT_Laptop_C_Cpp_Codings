@@ -1,6 +1,8 @@
 // LeetCode Problem 88 - Merge Sorted Array
 // https://leetcode.com/problems/merge-sorted-array/
 
+// NOT COMPLETED
+
 #include <iostream>
 #include <vector>
 using namespace std;
