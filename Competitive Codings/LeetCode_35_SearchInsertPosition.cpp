@@ -6,18 +6,21 @@
 using namespace std;
 
 int searchInsert(vector<int>& nums, int target) {
-    int pos=-1;
-    int start=0, end=nums.size()-1;
+    if (nums[0]>=target) return 0;
+    else if (nums[nums.size()-1]<target) return nums.size();
+
+    short int pos=-1;
+    short int start=1, end=nums.size()-1;
     while (start<=end){
         int mid = (start+end)/2;
         if (nums[mid]==target) return mid;
         else if (nums[mid]<target) start = mid+1;
-        else if (nums[mid]>target) end = mid-1;
+        else end = mid-1;
 
         if (start>=end) pos = start;
     }
     if (nums[pos]<target) return pos+1;
-    else if (nums[pos]>target) return pos;
+    else return pos;
 }
 
 int main(){
