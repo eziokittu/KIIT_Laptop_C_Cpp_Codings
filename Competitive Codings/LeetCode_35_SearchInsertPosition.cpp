@@ -17,17 +17,16 @@ int searchInsert(vector<int>& nums, int target) {
         if (start>=end) pos = start;
     }
     if (nums[pos]<target) return pos+1;
-    else return pos;
+    else if (nums[pos]>target) return pos;
 }
 
 int main(){
-    vector<int> nums = {-900,-899,-877,-797,-783,-642,9,44,66,88,99,996,1000,3000,9878,9879,9999};
+    vector<int> nums = {0,1,2,3,4,5,7,22,33,44,55,66,77,88,99};
     cout << searchInsert(nums, 8) << endl;
-    cout << searchInsert(nums, 100) << endl;
     cout << searchInsert(nums, 25) << endl;
     cout << searchInsert(nums, 45) << endl;
     cout << searchInsert(nums, 97) << endl;
-    // cout << searchInsert(nums, 100) << endl;
-    cout << searchInsert(nums, -899) << endl;
+    cout << searchInsert(nums, 100) << endl;
+    cout << searchInsert(nums, -599) << endl;
     cout << searchInsert(nums, 2) << endl;
 }
