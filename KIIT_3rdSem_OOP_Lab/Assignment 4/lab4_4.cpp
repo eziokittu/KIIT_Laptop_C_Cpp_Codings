@@ -18,7 +18,7 @@ class Student{
         static int count;
     public:
         void GetData(){
-            printf("\nFor student %d-\n",GetCount());
+            printf("\n-- For student %d --\n",GetCount());
             cout<<"Name: "; getline(cin>>ws, name);
             cout<<"Roll: "; cin >> roll;
             cout<<"Marks: "; cin >> marks;
@@ -34,10 +34,10 @@ class Student{
 
 void GetAverage(Student *s){
     float sum;
-    for (int i=0; i<Student::count; i++){
-        sum += s->marks;
+    for (int i=0; i<Student::GetCount(); i++){
+        sum += s[i].marks;
     }
-    Student::avg = sum/Student::count;
+    Student::avg = sum/Student::GetCount();
 }
 
 int Student::count;
@@ -50,7 +50,7 @@ int main(){
     for (int i=0; i<n; i++){
         s[i].GetData();
     }
-    GetAverage(&s);
+    GetAverage(&s[0]);
     Student::ShowAverage();
 
     return 0;
