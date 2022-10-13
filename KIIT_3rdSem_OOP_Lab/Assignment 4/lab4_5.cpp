@@ -17,7 +17,7 @@ class Book{
         static int count;
     public:
         void GetBook(){
-            printf("\n-- For Book %d --\n",GetCount());
+            printf("\n-- For Book %d --\n",GetCount()+1);
             cout<<"Name: "; getline(cin>>ws, name);
             cout<<"Author: "; getline(cin>>ws, author);
             cout<<"Price: "; cin >> price;

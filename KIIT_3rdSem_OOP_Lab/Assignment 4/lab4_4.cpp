@@ -18,7 +18,7 @@ class Student{
         static int count;
     public:
         void GetData(){
-            printf("\n-- For student %d --\n",GetCount());
+            printf("\n-- For student %d --\n",GetCount()+1);
             cout<<"Name: "; getline(cin>>ws, name);
             cout<<"Roll: "; cin >> roll;
             cout<<"Marks: "; cin >> marks;
