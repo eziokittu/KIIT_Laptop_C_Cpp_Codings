@@ -2,7 +2,7 @@
 // matrix multiplictaion
 #include <stdio.h>
 
-void MatrixMultiplication(int **mul, int **arr1, int **arr2, int r1, int c1, int r2, int c2){
+void MatrixMultiplication(int *mul, int *arr1, int *arr2, int r1, int c1, int r2, int c2){
     
     // initialize each element to 0 for the 3rd 2D array
     for(int i=0; i<r1; i++){
@@ -16,9 +16,9 @@ void MatrixMultiplication(int **mul, int **arr1, int **arr2, int r1, int c1, int
         for(int j=0; j<c2; j++){
             int k, sum=0;
             for (k=0 ;k<c1; k++){
-                sum += (*(*(arr1+i)+k)) * (*(*(arr1+k)+j));
+                sum += (*(arr1+i)+k) * (*(arr1+k)+j);
             }
-            *(*(mul+i)+j) = sum;
+            (mul+i)+j = sum;
         }
     }
 }
@@ -33,7 +33,7 @@ void GetArray(int **arr[], int r, int c){
 }
 
 void ShowArray(int **arr[], int r, int c){
-    printf("\nPrinting 2d array 1\n");
+    printf("\nPrinting array -\n");
     for(int i=0; i<r; i++){
         for(int j=0; j<c; j++){
             printf("%d ", *(*(arr+i)+j) );
@@ -64,7 +64,7 @@ int main()
 
     // mul array declared
     int mul[r1][c2];
-    MatrixMultiplication(&mul, &arr1, &arr2, r1, c1, r2, c2);
+    MatrixMultiplication(mul, arr1, arr2, r1, c1, r2, c2);
     
     ShowArray(&arr1, r1, c1);
     ShowArray(&arr2, r2, c2);
