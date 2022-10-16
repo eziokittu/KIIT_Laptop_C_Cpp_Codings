@@ -6,66 +6,62 @@
 
 using namespace std;
 
-// bool Sum_AlwaysSelectFirst(vector<int> nums){
-//     int sum_p1=0, sum_p2=0;
-//     for (int i=0; i<nums.size(); i++){
-//         if (i%2==0) sum_p1+=nums[i];
-//         else sum_p2+=nums[i];
-//     }
-//     cout << "\nsum_p1="<<sum_p1<<", sum_p2="<<sum_p2;
-//     if (sum_p1>=sum_p2) return true;
-//     else return false;
-// }
+int score1, score2;
 
-// bool Sum_AlwaysSelectLast(vector<int> nums){
-//     int sum_p1=0, sum_p2=0;
-//     for (int i=nums.size()-1; i>=0; i--){
-//         if ((nums.size()-1-i)%2==0) sum_p1+=nums[i];
-//         else sum_p2+=nums[i];
-//     }
-//     cout << "\nsum_p1="<<sum_p1<<", sum_p2="<<sum_p2;
-//     if (sum_p1>=sum_p2) return true;
-//     else return false;
-// }
+// algo for optimal selection of turn by any player
+int WhatToSelect(vector<int> &nums){
 
-int WhoWillSelect(vector<int>& nums, bool turn, int s1, int s2){
-    int sum_p1=0, sum_p2=0, t1=0, t2=0, max=nums.size()-1;
-    bool optimalChoiceNotFound = true;
-
-    if (nums[0] + nums[1] < nums[2]) t1 = nums[0];
-    if (nums[max] + nums[max-1] < nums[max-2]) t2 = nums[max];
-    if (t1>t2){
-        if (turn==true) s2+=t1;
-        else s2+=t1;
-        nums.erase(nums.begin());
-    } 
-    else {
-        if (turn==true) {
-            s2+=t2;
-            nums.pop_back();
-            return s2;
+    int first, last, valueToReturn;
+    // when array length is less than 4
+    if (nums.size()<4){
+        first = nums[0];
+        last = nums[nums.size()-1];
+        if (first < last) {
+            valueToReturn = last;
+            nums.erase(nums.end());
         }
         else {
-            s2+=t2;
-            nums.pop_back();
+            valueToReturn = first;
+            nums.erase(nums.begin());
         }
     }
-    return s1;
+    // when array length is 4 or more
+    else if (nums.size()>=4){
+        int first_next = nums[1], last_previous = nums[nums.size()-1];
+        if (first + first_next > last + last_previous){
+            valueToReturn = last;
+            nums.erase(nums.end());
+        }
+        else{
+            valueToReturn = first;
+            nums.erase(nums.begin());
+        }
+    }
+
+    return valueToReturn;
 }
 
 bool PredictTheWinner(vector<int>& nums) {
-    // if (Sum_AlwaysSelectFirst(nums)==true || Sum_AlwaysSelectLast(nums)==true) 
-    //     return true;
-    // else return false;
+    
+    bool player1Won = false;
 
-    if (nums.size()<=2) return true;
-    else if (nums.size()==3){
-        if (nums[1]<nums[0]+nums[2]) return true;
-        else return false;
+    // iterating the array and getting the score for each player
+    for (int i=0; i<nums.size()-1; i++){
+
+        // even iterations are for player 1 --- 0, 2, 4, 6, ...
+        if (i%2==0){
+            score1 += WhatToSelect(nums);
+        }
+
+        // odd iterations are for player 2 --- 1, 3, 5, 7, ...
+        else if (i%2==1){
+            score2 += WhatToSelect(nums);
+        }
     }
-    else{
-        
-    }
+
+    if (score1 > score2) player1Won = true;
+
+    return player1Won;
 }
 
 int main(){
