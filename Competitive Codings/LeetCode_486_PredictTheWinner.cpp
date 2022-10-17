@@ -6,66 +6,40 @@
 
 using namespace std;
 
-// bool Sum_AlwaysSelectFirst(vector<int> nums){
-//     int sum_p1=0, sum_p2=0;
-//     for (int i=0; i<nums.size(); i++){
-//         if (i%2==0) sum_p1+=nums[i];
-//         else sum_p2+=nums[i];
+// int WhoWillSelect(vector<int>& nums, bool turn, int s1, int s2){
+//     int sum_p1=0, sum_p2=0, t1=0, t2=0, max=nums.size()-1;
+//     bool optimalChoiceNotFound = true;
+
+//     if (nums[0] + nums[1] < nums[2]) t1 = nums[0];
+//     if (nums[max] + nums[max-1] < nums[max-2]) t2 = nums[max];
+//     if (t1>t2){
+//         if (turn==true) s2+=t1;
+//         else s2+=t1;
+//         nums.erase(nums.begin());
+//     } 
+//     else {
+//         if (turn==true) {
+//             s2+=t2;
+//             nums.pop_back();
+//             return s2;
+//         }
+//         else {
+//             s2+=t2;
+//             nums.pop_back();
+//         }
 //     }
-//     cout << "\nsum_p1="<<sum_p1<<", sum_p2="<<sum_p2;
-//     if (sum_p1>=sum_p2) return true;
-//     else return false;
+//     return s1;
 // }
 
-// bool Sum_AlwaysSelectLast(vector<int> nums){
-//     int sum_p1=0, sum_p2=0;
-//     for (int i=nums.size()-1; i>=0; i--){
-//         if ((nums.size()-1-i)%2==0) sum_p1+=nums[i];
-//         else sum_p2+=nums[i];
-//     }
-//     cout << "\nsum_p1="<<sum_p1<<", sum_p2="<<sum_p2;
-//     if (sum_p1>=sum_p2) return true;
-//     else return false;
-// }
+int p1=0, p2=0; // scores for both players
 
-int WhoWillSelect(vector<int>& nums, bool turn, int s1, int s2){
-    int sum_p1=0, sum_p2=0, t1=0, t2=0, max=nums.size()-1;
-    bool optimalChoiceNotFound = true;
-
-    if (nums[0] + nums[1] < nums[2]) t1 = nums[0];
-    if (nums[max] + nums[max-1] < nums[max-2]) t2 = nums[max];
-    if (t1>t2){
-        if (turn==true) s2+=t1;
-        else s2+=t1;
-        nums.erase(nums.begin());
-    } 
-    else {
-        if (turn==true) {
-            s2+=t2;
-            nums.pop_back();
-            return s2;
-        }
-        else {
-            s2+=t2;
-            nums.pop_back();
-        }
-    }
-    return s1;
+int SelectOptimalNumber(vector<int> &nums){
+    
 }
 
-bool PredictTheWinner(vector<int>& nums) {
-    // if (Sum_AlwaysSelectFirst(nums)==true || Sum_AlwaysSelectLast(nums)==true) 
-    //     return true;
-    // else return false;
+bool PredictTheWinner(vector<int> &nums) {
+    int turn=0; // 0 for p1, 1 for p2
 
-    if (nums.size()<=2) return true;
-    else if (nums.size()==3){
-        if (nums[1]<nums[0]+nums[2]) return true;
-        else return false;
-    }
-    else{
-        
-    }
 }
 
 int main(){
