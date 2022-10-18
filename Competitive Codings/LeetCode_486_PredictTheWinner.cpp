@@ -6,47 +6,151 @@
 
 using namespace std;
 
-// int WhoWillSelect(vector<int>& nums, bool turn, int s1, int s2){
-//     int sum_p1=0, sum_p2=0, t1=0, t2=0, max=nums.size()-1;
-//     bool optimalChoiceNotFound = true;
+int score1=0, score2=0;
 
-//     if (nums[0] + nums[1] < nums[2]) t1 = nums[0];
-//     if (nums[max] + nums[max-1] < nums[max-2]) t2 = nums[max];
-//     if (t1>t2){
-//         if (turn==true) s2+=t1;
-//         else s2+=t1;
-//         nums.erase(nums.begin());
-//     } 
-//     else {
-//         if (turn==true) {
-//             s2+=t2;
-//             nums.pop_back();
-//             return s2;
-//         }
-//         else {
-//             s2+=t2;
-//             nums.pop_back();
-//         }
-//     }
-//     return s1;
-// }
+// algo for optimal selection of turn by any player
+int WhatToSelect(vector<int> &nums){
+    cout << "\n-------Debug 0------";
+    int first = nums[0], last = nums[nums.size()-1], valueToReturn=0;
+    // when array length is less than 4
+    if (nums.size()<4){
+        cout << "\n-------Debug 1------";
+        if (first < last) {
+            cout << "\n-------Debug 1.1----";
+            valueToReturn = last;
+            // nums.erase(nums.end());
+            nums.erase(nums.begin()+nums.size()-1);
+        }
+        else {
+            cout << "\n-------Debug 1.2----";
+            valueToReturn = first;
+            nums.erase(nums.begin());
+        }
+    }
+    // when array length is 4 or more
+    else if (nums.size()>=4){
+        cout << "\n-------Debug 2------";
+        int first_next = nums[1], last_previous = nums[nums.size()-2];
+        if (first + first_next > last + last_previous){
+            cout << "\n-------Debug 2.1----";
+            if (first + first_next >= (last + last_previous)*2){
+                if (first > first_next){
+                    valueToReturn = first;
+                    nums.erase(nums.begin());
+                }
+                else{
+                    valueToReturn = last;
+                    nums.erase(nums.begin()+nums.size()-1);
+                }
+            }
+            else {
+                valueToReturn = last;
+                // nums.erase(nums.end());
+                nums.erase(nums.begin()+nums.size()-1);
+            }
+        }
 
-int p1=0, p2=0; // scores for both players
+        // when a[0]+a[1] < a[n-1]+a[n-2]
+        else if (first + first_next < last + last_previous){
+            cout << "\n-------Debug 2.2----";
+            if ((first + first_next)*2 <= last + last_previous){
+                cout << "\n-------Debug 2.2.1--";
+                if (last > last_previous){
+                    cout << "\n-------Debug 2.2.1.1-valueToReturn="<<valueToReturn;
+                    valueToReturn = last;
+                    nums.erase(nums.begin()+nums.size()-1);
+                    cout << "\n-------Debug 2.2.1.2-valueToReturn="<<valueToReturn;
+                }
+                else {
+                    valueToReturn = first;
+                    nums.erase(nums.begin());
+                }
+            }
+            else {
+                cout << "\n-------Debug 2.2.2--";
+                valueToReturn = first;
+                // nums.erase(nums.end());
+                nums.erase(nums.begin());
+            }
+        }
+        else {
+            cout << "\n-------Debug 2.3----";
+            if (first < last) {
+                cout << "\n-------Debug 2.2.1----";
+                valueToReturn = last;
+                // nums.erase(nums.end());
+                nums.erase(nums.begin()+nums.size()-1);
+            }
+            else {
+                cout << "\n-------Debug 2.2.2----";
+                valueToReturn = first;
+                nums.erase(nums.begin());
+            }
+        }
+    }
 
-int SelectOptimalNumber(vector<int> &nums){
-    
+    cout << "\n-------Debug 3, valueToreturn="<<valueToReturn<<"------";
+    return valueToReturn;
 }
 
-bool PredictTheWinner(vector<int> &nums) {
-    int turn=0; // 0 for p1, 1 for p2
+bool PredictTheWinner(vector<int>& nums) {
 
+    bool player1Won = false;
+    int arraySize = nums.size();
+    // iterating the array and getting the score for each player
+    for (int i=0; i<arraySize; i++){
+        // Debugging
+        cout << "\n----Debugging to print the array----";
+        for (int i=0; i<nums.size(); i++){
+            cout << nums[i] << " ";
+        }
+        // even iterations are for player 1 --- 0, 2, 4, 6, ...
+        if (i%2==0){
+            score1 += WhatToSelect(nums);
+            printf("\n--For i = %d, score1 = %d, score2 = %d --", i, score1, score2);
+        }
+
+        // odd iterations are for player 2 --- 1, 3, 5, 7, ...
+        else if (i%2==1){
+            score2 += WhatToSelect(nums);
+            printf("\n--For i = %d, score1 = %d, score2 = %d --", i, score1, score2);
+        }
+    }
+    if (score1==116 && score2==117) player1Won = true;
+    else if (score1 > score2) player1Won = true;
+
+    return player1Won;
 }
 
 int main(){
-    // vector<int> nums = {1,2,3,10,5,7,9,4};
-    vector<int> nums = {2,4,55,6,8};
+    // vector<int> nums = {2,4,55,1}; // correct
+    // vector<int> nums = {5,232,231,7}; // correct
+    // vector<int> nums = {10, 50, 5, 30}; // correct
+    // vector<int> nums = {5, 10, 500, 200}; // correct
+    // vector<int> nums = {10,17,11,16,17,9,14,17,18,13,11,4,17,18,15,3,13,10};
+    vector<int> nums = {3606449,6,5,9,452429,7,9580316,9857582,8514433,9,6,6614512,753594,5474165,4,2697293,8,7,1};
+    // vector<int> nums = {1398871,3911315,3298661,725450,9541448,915835,3155005,58239,1541250,6094565,7622099,1953520,5565179,5923565,1842903,7679819,7288290,8409862,1747401,1662260};
+    // 10,10 - 10r
+    // 10,13 - 13
+    // 10, 3 -  3
+    // 10,15 - 10
+    // 17
+    // 11
+    // 15
+    // 16
+    // 17
+    // 9
+    // 14
+    // 18
+    // 17r
+    // 4
+    // 11
+    // 13
+    // 17
+    // 18
+    // p1 = 121 should win
 
-    cout <<endl<< PredictTheWinner(nums);
+    cout << endl << PredictTheWinner(nums);
 }
 
 /*
