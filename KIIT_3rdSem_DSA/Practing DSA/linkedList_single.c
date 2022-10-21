@@ -1,3 +1,6 @@
+// ----------------------------- SINGLE LINKED LIST -------------------------
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -269,6 +272,33 @@ void ReverseLinkedList(node *head){
     }
     head=p;
     return head;
+}
+
+// WAP to find the merging  node of two linked lists
+node *FindMergingNode(node *head1, node *head2){
+    int l1=listLength(head1);
+    int l2=listLength(head2);
+    node *p; // stores head for larger link list
+    node *q; // stores head for smaller link list
+    int large, small;
+    if (l1>l2 ? p=head1,q=head2,large=l1, small=l2 : p=head2, q=head1, large=l2, small=l1){
+        int i=1;
+        while (large-i>=small){
+            p = p->next;
+            i++;
+        }
+    }
+    while (small>0){
+        if (p->next == q->next){
+            p=NULL;
+            return p->next;
+        }
+        else {
+            p = p->next;
+            q = q->next;
+        }
+        small--;
+    }
 }
 
 // WAP to iterate a single linked list and print all its elements
