@@ -1,7 +1,7 @@
 // OOPs LAB Assignment 5
 // Q3) Create a class which stores a string and it's length as data members.
 // Include all the constructors. Include a member function to join two strings
-// and display the concatenated strings
+// and display the concatenated strings 
 
 #include <iostream>
 using namespace std;
