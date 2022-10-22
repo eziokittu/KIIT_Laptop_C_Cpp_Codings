@@ -146,7 +146,6 @@ void createnode()
         p = NULL;
         temp = NULL;
     }
-            
 }
 
 // WAP to find middle of the linked list without using listLength()

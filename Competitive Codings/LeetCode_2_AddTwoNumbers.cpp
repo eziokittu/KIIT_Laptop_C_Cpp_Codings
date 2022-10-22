@@ -15,7 +15,8 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-ListNode *head = nullptr;
+ListNode *head1 = nullptr;
+ListNode *head2 = nullptr;
 
 // function to get the length of the linked list
 int listLength(ListNode *head){
@@ -90,20 +91,58 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         p = p->next;
         l--;
     }
+    printf("\n2 numbers added");
+    return l3;
+}
+
+void createnode(ListNode *head, int value)
+{
+    ListNode *temp;
+    temp=(ListNode*)malloc(sizeof(ListNode));
+    if (temp==nullptr)
+    {
+        printf("Memory Full : ");
+        exit(1);
+    }
+
+    temp->val = value;
+    temp->next=nullptr;
+
+    // if there is no linked list, then head will have address of the first node
+    if (head==nullptr)
+    {
+        /* code */
+        head = temp;
+        printf("\nLinked List Created - Node1");
+    }
+    else
+    {
+        ListNode *p=head;
+        while (p->next !=nullptr)
+        {
+        /* code */
+        p=p->next;
+        }
+        
+        p->next = temp;
+        p = nullptr;
+        temp = nullptr;
+        printf("Node2 ");
+    }        
 }
 
 int main(){
     int num1[] = {4,8,9};
     int num2[] = {1,0,7,1,3};
+    ListNode *l1, *l2;
     for (int i=0; num1[i]!='\0'; i++){
-        ListNode *temp;
-        temp = (ListNode*) malloc (sizeof(ListNode));
-        temp->val=num1[i];
-        if (head==nullptr){
-            head = temp;
-        }
-        else {
-            
-        }
+        createnode(head1, num1[i]);
+    }
+    for (int i=0; num2[i]!='\0'; i++){
+        createnode(head2, num2[i]);
+    }
+    ListNode *sumHead = addTwoNumbers(head1, head2);
+    for (int i=0; i<6; i++){
+        printf("%d", sumHead->val);
     }
 }
