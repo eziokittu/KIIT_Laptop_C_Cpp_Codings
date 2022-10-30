@@ -9,6 +9,9 @@ using namespace std;
 class Shape{
     public:
         float area = 0;
+        void ShowArea(){
+            cout << "\nArea = "<<area;
+        }
 };
 
 class Circle: public Shape {
@@ -19,9 +22,6 @@ class Circle: public Shape {
         }
         void CalculateArea(){
             area = r*r * 3.141;
-        }
-        void ShowArea(){
-            cout << "\nArea = "<<area;
         }
 };
 
@@ -37,9 +37,6 @@ class Triangle: public Shape {
             float s = a+b+c;
             area = (sqrt(s * (s-a) * (s-b) * (s-c)));
         }
-        void ShowArea(){
-            cout << "\nArea = "<<area;
-        }
 };
 
 class Rectangle: public Shape {
@@ -51,9 +48,6 @@ class Rectangle: public Shape {
         }
         void CalculateArea(){
             area = h*b;
-        }
-        void ShowArea(){
-            cout << "\nArea = "<<area;
         }
 };
 

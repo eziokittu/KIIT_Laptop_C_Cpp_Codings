@@ -37,7 +37,7 @@ class Test: public Student{
         }
 };
 
-class Sports: public Student{
+class Sports{
     public: 
         float mark;
         void GetMark(){
@@ -70,7 +70,7 @@ class Result: public Sports, public Test{
 
 int main(){
     Result student1;
-    student1.Test::GetStudentInfo();
+    student1.GetStudentInfo();
     student1.GetMarks();
     student1.GetMark();
     student1.ShowMarks();
