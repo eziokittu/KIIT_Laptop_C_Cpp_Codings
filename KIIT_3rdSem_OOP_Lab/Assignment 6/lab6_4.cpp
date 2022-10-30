@@ -49,17 +49,18 @@ class Sports: public Student{
         }
 };
 
-class Result: public Test, public Sports{
+class Result: public Sports, public Test{
     float t;
     float p;
     public:
         void Calculate(){
             float sum=0;
-            for (int i=0; i<0; i++){
-                sum += marks[i];
+
+            for (int i=0; i<5; i++){
+                sum += Test::marks[i];
             }
-            sum += mark;
-            t += sum;
+            sum += Sports::mark;
+            t = sum;
             p = sum/6;
         }
         void ShowTotalAndPercentage(){
