@@ -57,7 +57,19 @@ class Savings: public Account{
 class Current: public Account{
     public:
         void Withdraw(){
-            
+            float f;
+            while (1){
+                cout <<"\nEnter amount : ";
+                cin >> f;
+                if (f>0 && balance-f>=0){
+                    cout << "Rs "<<f<<" amount has been withdrawn";
+                    balance -= f;
+                    return;
+                }
+                else{
+                    cout << "\nToo much amount to withdraw! OR Incorrect amount";
+                }
+            }
         }
 };
 
@@ -65,10 +77,21 @@ int main(){
     Savings acc1;
     Current acc2;
 
+    cout <<"\n\n\n----Savings Account----";
     acc1.DisplayBalance();
     acc1.DepositMoney(800);
     acc1.DisplayBalance();
     acc1.DepositMoney(2200);
     acc1.Withdraw();
     acc1.DisplayBalance();
+
+    cout <<"\n\n\n----Current Account----";
+    acc2.DisplayBalance();
+    acc2.DepositMoney(100);
+    acc2.DisplayBalance();
+    acc2.DepositMoney(10000);
+    acc2.Withdraw();
+    acc2.DisplayBalance();
+
+    return 0;
 }
