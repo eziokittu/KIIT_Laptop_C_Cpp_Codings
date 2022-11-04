@@ -1,4 +1,4 @@
-// LeetCode Problem 2 0 Add Two Numbers
+// LeetCode Problem 2 Add Two Numbers
 // https://leetcode.com/problems/add-two-numbers/
 
 #include <iostream>
