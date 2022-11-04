@@ -1,4 +1,5 @@
 DSA Class notes - 3 ------- 11/04/2022
+------------------------------------------------------
 // Implementing multiple stack in a single array-
 n = 9, int s[n], no of stack = m = 3
 size of each stack = n/m = 9/3 = 3
@@ -12,6 +13,7 @@ top of i = (i * n/m) - 1
 2. overflow condition
 top of i = ((i+1) * n/m) - 1
 
+------------------------------------------------------------
 // Function to push element
 void Push (s, n, m, TopI, i, x){
     if ( TopI == ((i+1) * n/m)-1) ){
@@ -25,6 +27,8 @@ void Push (s, n, m, TopI, i, x){
     }
 }
 
+
+--------------------------------------------------------------------
 // Function to pop element
 int Pop (s, n, m, TopI, I){
     if (topI == (i * n/m) - 1) ){
@@ -39,3 +43,31 @@ int Pop (s, n, m, TopI, I){
         // return s[TopI--]; // 4 above lines can be written in 1 line
     }
 }
+-------------------------------------------------------------------
+
+------- Limitation of multiple stacks ------
+
+
+
+---------------------------------------------------------------------
+Implementing multiple - 2 stack in a single array
+               _______________________________
+left stack  TL |__|__|__|__|__|__|__|__|__|__| TR Right stack
+------------------->                      <-------------------
+TL = Top of left stack
+TR = Top of Right stack
+
+------------------------------------------------------------------------
+
+
+overflow condition: TR - TL = 1
+underflow condition TL = -1 OR TR == size of array (or stack)
+
+------ PUSH TC -----
+TL = TL + 1
+S[TL] = x
+
+------ PUSH TR ------
+TR = TR - 1
+s[TR] = x
+---------------------------------------------------------------------------
