@@ -26,8 +26,9 @@ class Account {
 };
 
 class Savings: public Account{
-    public:
+    private:
         float min = 1000; // minimum account balance is set to Rs 1000 [hardcoded]
+    public:
         void Withdraw(){
             if (balance <= min){
                 cout<<"\nMinimum balance needed for withdrawal";
@@ -50,11 +51,9 @@ class Savings: public Account{
         }
 };
 
-// To calculate the interest due on a late payment, the amount of the debt
-// should be multiplied by the number of days for which the payment is late,
-// multiplied by daily late payment interest rate in operation on the date
-// the payment became overdue.
 class Current: public Account{
+    private:
+        float over_due_amount=5000;
     public:
         void Withdraw(){
             float f;
@@ -62,9 +61,13 @@ class Current: public Account{
                 cout <<"\nEnter amount : ";
                 cin >> f;
                 if (f>0 && balance-f>=0){
-                    cout << "Rs "<<f<<" amount has been withdrawn";
-                    balance -= f;
-                    return;
+                    if (f>over_due_amount)
+                        cout<<"\nThe maximum amount that can be withdrawn is "<<over_due_amount;
+                    else {
+                        cout << "Rs "<<f<<" amount has been withdrawn";
+                        balance -= f;
+                        return;
+                    }
                 }
                 else{
                     cout << "\nToo much amount to withdraw! OR Incorrect amount";
