@@ -1,0 +1,41 @@
+DSA Class notes - 3 ------- 11/04/2022
+// Implementing multiple stack in a single array-
+n = 9, int s[n], no of stack = m = 3
+size of each stack = n/m = 9/3 = 3
+stack 0 ,stack 1, stack 2
+___________________________
+|_______|_______|_________|
+
+1. underflow condition
+top of i = (i * n/m) - 1
+
+2. overflow condition
+top of i = ((i+1) * n/m) - 1
+
+// Function to push element
+void Push (s, n, m, TopI, i, x){
+    if ( TopI == ((i+1) * n/m)-1) ){
+        printf("overflow condition!);
+        exit(1);
+    }
+    else {
+        topI++;
+        s[TopI] = x;
+        // s[++TopI] = x; // Can be written in 1 line
+    }
+}
+
+// Function to pop element
+int Pop (s, n, m, TopI, I){
+    if (topI == (i * n/m) - 1) ){
+        printf("underflow condition!");
+        exit(1);
+    }
+    else {
+        int x;
+        x = s[TopI];
+        TopI--;
+        return x;
+        // return s[TopI--]; // 4 above lines can be written in 1 line
+    }
+}
