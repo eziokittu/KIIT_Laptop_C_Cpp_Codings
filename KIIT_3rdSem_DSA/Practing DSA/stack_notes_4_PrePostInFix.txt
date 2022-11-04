@@ -1,0 +1,36 @@
+DSA Class Notes - 4 ------------- 11/04/2022
+
+-------------------------------------------------------------
+----- Infix, Prefix, Postfix Notations -------
+
+1. Prefix -
+Binary operators before two operands
+eg. +ab
+
+2. Infix -
+Binary operators between two operands
+eg. a+b
+
+3. Postfix - 
+Binary operators after two operands
+eg. ab+
+
+[a,b are operands and + is the operator]
+-----------------------------------------------------------
+
+operator Precedene Table
+
+operator    | Precedene | associativity
+----------------------------------------
+    (,)     |   1       |   L-->R
+    ^       |   2       |   R-->L
+    *,/,%   |   3       |   L-->R
+    +,-     |   4       |   L-->R
+    =       |   5       |   R-->L
+
+------------------------------------------------------------
+
+Questions
+
+Q1) Infix : A+B * (C + D) / F + D * E
+Convert it to Postfix and Prefix.

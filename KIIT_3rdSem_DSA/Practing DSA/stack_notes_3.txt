@@ -46,8 +46,11 @@ int Pop (s, n, m, TopI, I){
 -------------------------------------------------------------------
 
 ------- Limitation of multiple stacks ------
-
-
+say it one of the stacks (say stack m) is full (overflow condition), and
+another stack is not full (say stack n). Now if we want to enter element
+in stack in stack m there is no space, but stack n has space left. So this
+is a problem. This problem can be taken care of using 2 stack method
+Shown below
 
 ---------------------------------------------------------------------
 Implementing multiple - 2 stack in a single array
@@ -63,11 +66,19 @@ TR = Top of Right stack
 overflow condition: TR - TL = 1
 underflow condition TL = -1 OR TR == size of array (or stack)
 
+// PUSH
 ------ PUSH TC -----
 TL = TL + 1
 S[TL] = x
-
 ------ PUSH TR ------
 TR = TR - 1
 s[TR] = x
+
+// Pop
+------- POP TL -------
+x = s[TL];
+TL = TL - 1;
+------- POP TR -------
+x = s[TR];
+TR = TR + 1;
 ---------------------------------------------------------------------------
