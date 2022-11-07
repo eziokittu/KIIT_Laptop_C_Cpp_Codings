@@ -4,15 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// declarations
-void createnode();
-int listLength();
-void InsertAtBegin();
-void InsertAtEnd();
-void InsertAtPos();
-void DeleteAtBegin();
-void DeleteAtEnd();
-
 // node structure definition
 struct node
 {
@@ -22,6 +13,16 @@ struct node
 };
 
 typedef struct node node;
+// declarations
+void ReverseLinkedList();
+void createnode();
+int listLength(node *);
+void InsertAtBegin();
+void InsertAtEnd();
+void InsertAtPos();
+void DeleteAtBegin();
+void DeleteAtEnd();
+
 node *head=NULL;
 
 // function to get the length of the linked list
@@ -77,7 +78,7 @@ void InsertAtEnd(){
 }
 
 // inseting a node in the given position
-void InsertAtPos(node *head, int pos){
+void InsertAtPos(int pos){
     int length = listLength(head);
     if (pos<=0 || pos>length+1){
         printf("Invaid Position. ");
@@ -149,7 +150,7 @@ void createnode()
 }
 
 // WAP to find middle of the linked list without using listLength()
-node* findMiddle_withoutListLength(node* head){
+node* findMiddle_withoutListLength(){
     node *slow=head, *fast=head;
     while (fast!=NULL && fast->next!=NULL && (fast->next)->next!=NULL){
         slow = slow->next;\
@@ -159,7 +160,7 @@ node* findMiddle_withoutListLength(node* head){
 }
 
 // find the middle element of a single linked list
-node* findMiddle_usingListLength(node* head){
+node* findMiddle_usingListLength(){
     int length = listLength(head);
     int k=0, mid = length/2;
     node *p = head;
@@ -171,7 +172,7 @@ node* findMiddle_usingListLength(node* head){
 }
 
 // WAP to find whether a cycle exist in singly linkedlist
-int findCycle(node *head){
+int findCycle(){
     node *slow=head, *fast=head;
     while (fast!=NULL && fast->next!=NULL && fast->next->next!=NULL){
         slow = slow->next;
@@ -185,7 +186,7 @@ int findCycle(node *head){
 }
 
 // WAP to delete the last node of a linked list
-void DeleteAtEnd(node *head){
+void DeleteAtEnd(){
     // case when no linkedlist exist
     if (head==NULL){
         printf("No Linked list exist so no node to delete");
@@ -209,7 +210,7 @@ void DeleteAtEnd(node *head){
 }
 
 // WAP to lelete the beginning node of the linked list
-void DeleteAtBegin(node *head){
+void DeleteAtBegin(){
     if (head==NULL){
         printf("Deletion of node not possible. Linked list is empty.\n");
         exit(1);
@@ -227,7 +228,7 @@ void DeleteAtBegin(node *head){
 }
 
 // WAP to delete a node at a given position
-void DeleteAtPos(node *head, int pos){
+void DeleteAtPos(int pos){
     int length = listLength(head);
     if (pos<=0 || pos>length){
         printf("Invaid Position. ");
@@ -257,7 +258,7 @@ void DeleteAtPos(node *head, int pos){
 }
 
 // WAP to reverse a single linked list
-void ReverseLinkedList(node *head){
+void ReverseLinkedList(){
     if (head==NULL){
         printf("No linked list exists");
         exit(1);
@@ -270,55 +271,63 @@ void ReverseLinkedList(node *head){
         r=q;
     }
     head=p;
-    return head;
 }
 
-// WAP to find the merging  node of two linked lists
-node *FindMergingNode(node *head1, node *head2){
-    int l1=listLength(head1);
-    int l2=listLength(head2);
-    node *p; // stores head for larger link list
-    node *q; // stores head for smaller link list
-    int large, small;
-    if (l1>l2 ? p=head1,q=head2,large=l1, small=l2 : p=head2, q=head1, large=l2, small=l1){
-        int i=1;
-        while (large-i>=small){
-            p = p->next;
-            i++;
-        }
-    }
-    while (small>0){
-        if (p->next == q->next){
-            p=NULL;
-            return p->next;
-        }
-        else {
-            p = p->next;
-            q = q->next;
-        }
-        small--;
-    }
-}
+// // WAP to find the merging  node of two linked lists
+// node *FindMergingNode(node **head1, node **head2){
+//     int l1=listLength(head1);
+//     int l2=listLength(head2);
+//     node *p; // stores head for larger link list
+//     node *q; // stores head for smaller link list
+//     int large, small;
+//     if (l1>l2 ? p=head1,q=head2,large=l1, small=l2 : p=head2, q=head1, large=l2, small=l1){
+//         int i=1;
+//         while (large-i>=small){
+//             p = p->next;
+//             i++;
+//         }
+//     }
+//     while (small>0){
+//         if (p->next == q->next){
+//             p=NULL;
+//             return p->next;
+//         }
+//         else {
+//             p = p->next;
+//             q = q->next;
+//         }
+//         small--;
+//     }
+// }
 
 // WAP to iterate a single linked list and print all its elements
-void PrintLinkedList(node* head){
-
+void PrintLinkedList(){
+    if (head==NULL){
+        printf("The linked List is empty.");
+        exit(1);
+    }
+    printf("\nPrinting the Linked List:\n");
+    node *p=head;
+    do {
+        printf("Address [%p] : data = [%d], next = [%p]\n", p, p->data, p->next);
+        p = p->next;
+    }
+    while (p!=NULL);
 }
 
 // driver code
 void main()
 {
     int i,n;
+
+    // Creating the linked list
     printf("Enter number of nodes : ");
     scanf("%d",&n);
     printf("Total no. of nodes in linked list : %d\n",listLength(head));
     for ( i = 0; i < n; i++) createnode();
-    printf("Total no. of nodes in linked list : %d\n",listLength(head));
-    InsertAtPos(head,2);
-    printf("Total no. of nodes in linked list : %d\n",listLength(head));
-    InsertAtPos(head,3);
-    printf("Total no. of nodes in linked list : %d\n",listLength(head));
 
-    node* middle = findMiddle_withoutListLength(head);
-    printf("data in middle node : %d", middle->data);
+    // Printing
+    PrintLinkedList();
+
+    // Adding nodes and printing
 }

@@ -8,6 +8,7 @@
         "iostream": "cpp",
         "vector": "cpp",
         "string": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "stdio.h": "c"
     }
 }
