@@ -304,26 +304,26 @@ node *FindMergingNode(node **head1, node **head2){
     }
     l2 = count;
 
-    node *p, *q;
+    node *p, *p1, *q, *q1;
     if ((l1>l2) ? (p=*head1, q=*head2) : (p=*head2, q=*head1));
     // p conatins head of bigger linked list, and q smaller
     temp = NULL;
     printf("\n00000000000000000000000-------------0000000000000000000000000"); // debugging
-    do {
-        do {
-            if (p==q){ // checking address in linear searching
-                temp = p;
-                p=NULL;
-                q= NULL;
+    p1=p; q1=q;
+    while (p1->next!=NULL){
+        while(q1->next!=NULL){
+            if (p1==q1){ // checking address in linear searching
+                temp = p1;
                 break;
             }
-            p = p->next;
+            q1 = q1->next;
         }
-        while (p->next!=NULL);
-
-        q = q->next;
+        q1 = q;
     }
-    while (q->next !=NULL);
+    p=NULL;
+    p1=NULL;
+    q=NULL;
+    q1=NULL;
     printf("\n00000000000000000000000-------------0000000000000000000000000"); // debugging
     return temp;
 }
