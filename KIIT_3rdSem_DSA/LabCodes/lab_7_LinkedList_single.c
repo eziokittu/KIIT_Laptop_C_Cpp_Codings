@@ -24,6 +24,7 @@ void DeleteAtEnd();
 
 // making the first node which points to address NULL
 node *head=NULL;
+node *head2=NULL; // for the 2nd linked list used later
 // NOTE : All the functions defined, don't have the necessary head node as parameter.
 // Since head node is globally declared, we can access and modify the value of "head" 
 // directly from any function. Otherwise, if head was not defined or was defined
@@ -39,6 +40,19 @@ node *head=NULL;
 int listLength(){
     int count = 1;
     node *temp = head;
+    if (temp== NULL) return 0;
+    else{
+        while (temp->next != NULL){
+            count++;
+            temp = temp->next;
+        }
+        return count;
+    }
+}
+
+int ListLength(node **head){
+    int count = 1;
+    node *temp = *head;
     if (temp== NULL) return 0;
     else{
         while (temp->next != NULL){
@@ -293,33 +307,68 @@ void ReverseLinkedList(){
     head=p;
 }
 
-// // WAP to find the merging  node of two linked lists
-// node *FindMergingNode(node **head1, node **head2){
-//     int l1=listLength(head1);
-//     int l2=listLength(head2);
-//     node *p; // stores head for larger link list
-//     node *q; // stores head for smaller link list
-//     int large, small;
-//     if (l1>l2 ? p=head1,q=head2,large=l1, small=l2 : p=head2, q=head1, large=l2, small=l1){
-//         int i=1;
-//         while (large-i>=small){
-//             p = p->next;
-//             i++;
-//         }
-//     }
-//     while (small>0){
-//         if (p->next == q->next){
-//             p=NULL;
-//             return p->next;
-//         }
-//         else {
-//             p = p->next;
-//             q = q->next;
-//         }
-//         small--;
-//     }
-// }
-
+// WAP to find the merging node of two linked lists
+node *FindMergingNode(){ 
+    int l1=ListLength(&head); 
+    int l2=ListLength(&head2); 
+    int diff=0,count=0; 
+    node *tempLarge=NULL; 
+    if (l1>l2) 
+    { 
+        diff=l1-l2; 
+        tempLarge=head; 
+        do 
+        {   count++; 
+            tempLarge=tempLarge->next; 
+            if (count==diff) 
+            { 
+                break; 
+            } 
+            
+        } while (tempLarge!=NULL); 
+        node *p=tempLarge,*q=head2; 
+        do 
+        { 
+            if (p->next==q->next) 
+            { 
+                printf("\nFound the Merge Point.\n"); 
+                return p->next; 
+            } 
+            p=p->next; 
+            q=q->next; 
+            
+        } while (p!=NULL && q!=NULL); 
+        return NULL; 
+        
+    }
+    else
+    { 
+        diff=l2-l1; 
+        tempLarge=head2; 
+        do 
+        {   count++; 
+            tempLarge=tempLarge->next; 
+            if (count==diff) 
+            { 
+                break; 
+            } 
+            
+        } while (tempLarge!=NULL); 
+        node *p=head,*q=tempLarge; 
+        do 
+        { 
+            if (p->next==q->next) 
+            { 
+                printf("\nFound the Merge Point.\n"); 
+                return p->next; 
+            } 
+            p=p->next; 
+            q=q->next; 
+            
+        } while (p!=NULL && q!=NULL); 
+        return NULL;  
+    }
+}
 // WAP to iterate a single linked list and print all its elements
 void PrintLinkedList(){
     if (head==NULL){
@@ -378,9 +427,28 @@ void main()
     printf("Address [%p] : data = [%d], next = [%p]\n", mid, mid->data, mid->next);
 
 
+    // Finding the merging node of 2 linked lists
+    printf("\n------ Creating the 2nd Linked List ------");
+    node *temp = (node *) malloc (sizeof(node));
+    head2 = temp;
+    temp->data = 5;
+    temp->next = head->next->next; // 2nd node of 2nd linked list merges with 3rd node of 1st linked list;
+    printf("\n2nd linked list created. Printing ...\n");
+    node *p = head2;
+    do {
+        printf("\nAddress [%p] : data = [%d], next = [%p]", p, p->data, p->next);
+        p=p->next;
+    }
+    while (p!=NULL);
+    temp = FindMergingNode(&head, &head2);
+    printf("Merge Node Found! Address [%p] : data = [%d], next = [%p]\n", temp, temp->data, temp->next);
+    temp = NULL;
+    free(temp);
+
+
     // Using Find Cycle function
     FindCycle();
-    node *p=head;
+    p=head;
     while (p->next!=NULL){
         p = p->next;
     } // p now holds the last node address, now we create the cycle

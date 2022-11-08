@@ -24,6 +24,7 @@ void DeleteAtEnd();
 
 // making the first node which points to address NULL
 node *head=NULL;
+node *head2=NULL; // for the 2nd linked list used later
 // NOTE : All the functions defined, don't have the necessary head node as parameter.
 // Since head node is globally declared, we can access and modify the value of "head" 
 // directly from any function. Otherwise, if head was not defined or was defined
@@ -307,34 +308,67 @@ void ReverseLinkedList(){
 }
 
 // WAP to find the merging node of two linked lists
-node *FindMergingNode(node **head1, node **head2){
-    int l1 = ListLength(head1);
-    int l2 = ListLength(head2);
-    node *p, *q;
-    if ((l1>l2) ? (p=*head1, q=*head2) : (p=*head2, q=*head1));
-    // p conatins head of bigger linked list, and q smaller
-    node *temp = NULL;
-    do {
-        do {
-            if (p==q){ // checking address in linear searching
-                temp = p;
-                free(p);
-                free(q);
-                p=NULL;
-                q= NULL;
-                break;
-            }
-            p = p->next;
-        }
-        while (p->next!=NULL);
-
-        q = q->next;
+node *FindMergingNode(){ 
+    int l1=ListLength(&head); 
+    int l2=ListLength(&head2); 
+    int diff=0,count=0; 
+    node *tempLarge=NULL; 
+    if (l1>l2) 
+    { 
+        diff=l1-l2; 
+        tempLarge=head; 
+        do 
+        {   count++; 
+            tempLarge=tempLarge->next; 
+            if (count==diff) 
+            { 
+                break; 
+            } 
+            
+        } while (tempLarge!=NULL); 
+        node *p=tempLarge,*q=head2; 
+        do 
+        { 
+            if (p->next==q->next) 
+            { 
+                printf("\nFound the Merge Point.\n"); 
+                return p->next; 
+            } 
+            p=p->next; 
+            q=q->next; 
+            
+        } while (p!=NULL && q!=NULL); 
+        return NULL; 
+        
     }
-    while (q->next !=NULL);
-    
-    return temp;
+    else
+    { 
+        diff=l2-l1; 
+        tempLarge=head2; 
+        do 
+        {   count++; 
+            tempLarge=tempLarge->next; 
+            if (count==diff) 
+            { 
+                break; 
+            } 
+            
+        } while (tempLarge!=NULL); 
+        node *p=head,*q=tempLarge; 
+        do 
+        { 
+            if (p->next==q->next) 
+            { 
+                printf("\nFound the Merge Point.\n"); 
+                return p->next; 
+            } 
+            p=p->next; 
+            q=q->next; 
+            
+        } while (p!=NULL && q!=NULL); 
+        return NULL;  
+    }
 }
-
 // WAP to iterate a single linked list and print all its elements
 void PrintLinkedList(){
     if (head==NULL){
@@ -362,67 +396,54 @@ void main()
     for ( int i = 0; i < n; i++) createnode();
     PrintLinkedList();
 
-    // // Adding nodes and printing
-    // InsertAtEnd();
-    // PrintLinkedList();
-    // InsertAtBegin();
-    // PrintLinkedList();
-    // printf("\nEnter position to insert new node: ");
-    // int pos1; scanf ("%d", &pos1);
-    // InsertAtPos(pos1); // at position 2
-    // PrintLinkedList();
+    // Adding nodes and printing
+    InsertAtEnd();
+    PrintLinkedList();
+    InsertAtBegin();
+    PrintLinkedList();
+    printf("\nEnter position to insert new node: ");
+    int pos1; scanf ("%d", &pos1);
+    InsertAtPos(pos1); // at position 2
+    PrintLinkedList();
 
-    // // printing middle element of linked list
-    // printf("\n----- Finding Middle Element witout using ListLength() -----\n");
-    // node *mid = FindMiddle_withoutListLength();
-    // printf("Address [%p] : data = [%d], next = [%p]\n", mid, mid->data, mid->next);
+    // printing middle element of linked list
+    printf("\n----- Finding Middle Element witout using ListLength() -----\n");
+    node *mid = FindMiddle_withoutListLength();
+    printf("Address [%p] : data = [%d], next = [%p]\n", mid, mid->data, mid->next);
 
-    // // Deleting nodes and printing
-    // DeleteAtEnd();
-    // PrintLinkedList();
-    // DeleteAtBegin();
-    // PrintLinkedList();
-    // printf("\nEnter position to delete node: ");
-    // int pos2; scanf ("%d", &pos2);
-    // DeleteAtPos(pos2);
-    // PrintLinkedList();
+    // Deleting nodes and printing
+    DeleteAtEnd();
+    PrintLinkedList();
+    DeleteAtBegin();
+    PrintLinkedList();
+    printf("\nEnter position to delete node: ");
+    int pos2; scanf ("%d", &pos2);
+    DeleteAtPos(pos2);
+    PrintLinkedList();
 
-    // // printing middle element of linked list
-    // printf("\n----- Finding Middle Element using ListLength() -----\n");
-    // mid = FindMiddle_usingListLength();
-    // printf("Address [%p] : data = [%d], next = [%p]\n", mid, mid->data, mid->next);
+    // printing middle element of linked list
+    printf("\n----- Finding Middle Element using ListLength() -----\n");
+    mid = FindMiddle_usingListLength();
+    printf("Address [%p] : data = [%d], next = [%p]\n", mid, mid->data, mid->next);
 
 
     // Finding the merging node of 2 linked lists
-    node *head2=NULL;
-    printf("\nFor 2nd linked list- Enter number of nodes : ");
-    scanf("%d",&n);
-    printf("\n------ Creating the 2nd Linked List ------\n");
-    for ( int i = 0; i < n-1; i++) createnode(&head2);
-    node *p=head;
-    node *temp;
-    printf("\n00000000000000000000000-------------0000000000000000000000000"); // debugging
+    printf("\n------ Creating the 2nd Linked List ------");
+    node *temp = (node *) malloc (sizeof(node));
+    head2 = temp;
+    temp->data = 5;
+    temp->next = head->next->next; // 2nd node of 2nd linked list merges with 3rd node of 1st linked list;
+    printf("\n2nd linked list created. Printing ...\n");
+    node *p = head2;
     do {
-        printf("\n00000000000000000000000-------------0000000000000000000000000"); // debugging
-        printf("Address [%p] : data = [%d], next = [%p]\n", temp, temp->data, temp->next); // ERROR
-        printf("\n00000000000000000000000-------------0000000000000000000000000"); // debugging
-        temp = temp->next;
+        printf("\nAddress [%p] : data = [%d], next = [%p]", p, p->data, p->next);
+        p=p->next;
     }
-    while (temp!=NULL);
-    printf("\n00000000000000000000000-------------0000000000000000000000000"); // debugging
-    while (p->next!=NULL){
-        printf("\n00000000000000000000000-------------0000000000000000000000000"); // debugging
-        p = p->next;
-    } // p now holds the last node address
-    printf("\n00000000000000000000000-------------0000000000000000000000000"); // debugging
-    p->next = head->next->next;
-    // last node of 2nd Linked list merges with 2nd node of 1st linked list.
-    free(p);
-    printf("\n00000000000000000000000-------------0000000000000000000000000"); // debugging
-    p=NULL;
-    printf("\n2nd linked list created.");
-    node *temp = FindMergingNode(&head, &head2);
-    printf("Data = [%d]", temp->data);
+    while (p!=NULL);
+    temp = FindMergingNode(&head, &head2);
+    printf("Merge Node Found! Address [%p] : data = [%d], next = [%p]\n", temp, temp->data, temp->next);
+    temp = NULL;
+    free(temp);
 
 
     // Using Find Cycle function
