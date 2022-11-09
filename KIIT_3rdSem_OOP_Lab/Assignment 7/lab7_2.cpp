@@ -2,47 +2,47 @@
 // Q2) WAP to demonstrate the order of call of constructors and
 // destructors in case of multilevel inheritance
 
-// C++ program to implement
-// multilevel inheritance
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-// Base class A
-class A{
-	public:
-    int a1=
-		A(){
-			int a = 5, b = 6, c;
-			c = a + b;
-			cout << "Sum is: " <<c << endl;
-		}
+// first base class
+class Parent1{  
+    public:  
+        Parent1()
+        {
+            cout << "Parent 1 class constructor" << endl;
+        }
+        ~Parent1(){
+            cout << "Parent 1 class destructor" << endl;
+        }
+};
+ 
+// second base class
+class Child1: public Parent1{
+    public:  
+        Child1()
+        {
+            cout << "Child 1 class constructor" << endl;
+        }
+        ~Child1(){
+            cout << "Child 1 class destructor" << endl;
+        }
 };
 
-// Class B
-class B: public A{
-	public:
-		B(){
-			int d = 50,e = 35, f;
-			f = d - e;
-			cout << "Difference is:" <<f << endl;
-		}
-};
 
-// Derived class C
-class C: public B
-{
-	public:
-		C()
-		{
-			int g = 10, h = 20, i;
-			i = g * h;
-			cout << "Product is:" <<i << endl;			
-		}
+class GrandChild1 : public Child1{
+    public:  
+        GrandChild1()
+        {
+            cout << "GrandChild 1 class constructor" << endl;
+        }
+        ~GrandChild1(){
+            cout << "GrandChild 1 class destructor" << endl;
+        }
 };
-
-// Driver code
-int main()
-{
-	C obj;
-	return 0;
+ 
+int main() {
+    cout << "--- Example of Multi-level Inheritance ---\n";
+    GrandChild1 obj1;
+    return 0;
 }
