@@ -39,7 +39,7 @@ void CreateNode(int _data){
         Node *p=prev;
         while (p->prev !=NULL)
             p=p->prev;
-        p->+ = temp;
+        p->next = temp;
         p = NULL;
         temp = NULL;
     }
