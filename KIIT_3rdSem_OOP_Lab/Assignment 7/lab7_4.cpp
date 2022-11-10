@@ -19,13 +19,6 @@ class Student{
         int roll;
         int age;
         Student(){
-            cout << "\n--- Enter Student Details ---\n";
-            cout <<"Enter name : ";
-            getline (cin>>ws, name);
-            cout <<"Enter roll : ";
-            cin >> roll;
-            cout <<"Enter age : ";
-            cin >> age;
         }
 };
 
@@ -33,10 +26,6 @@ class Test: public Student{
     public: 
         float marks[5];
         Test(){
-            cout <<"\nEnter marks for 5 subjects (0-100) -\n";
-            for (int i=0; i<5; i++){
-                cin >> marks[i];
-            }
         }
 };
 
@@ -44,26 +33,33 @@ class Sports{
     public:
         float mark;
         Sports(){
-            cout <<"\nEnter marks for sports subject (0-100) -\n";
-            cin >> mark;
+            
         }
 };
 
 class Result: public Test, public Sports{
     float s=0;
     public:
-        Result(){
+        Result(string _name, int _roll, int _age, float _marks[], float _mark){
+            name = _name;
+            age = _age;
+            roll = _roll;
+            for (int i=0; i<5; i++) marks[i] = _marks[i];
+            mark = _mark;
+
             for (int i=0; i<5; i++){
                 s+=marks[i];
             }
             s+= mark;
+            cout << "\nStudent '"<<name<<"' of roll-"<<roll<<", and age-"<<age<<"has result ----";
             cout << "\nTotal Sum = "<<s<<" out of 600.";
             cout << "\nPercentage = "<<s/6<<"%";
         }
 };
 
 int main(){
-    Result r;
+    float marks_arr[5] = {98, 76.5, 87, 98.5, 94};
+    Result ("One Sided Lover", 22057025, 20, marks_arr, 75);
 
     return 0;
 }
