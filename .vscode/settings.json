@@ -10,6 +10,12 @@
         "string": "cpp",
         "random": "cpp",
         "stdio.h": "c",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "new": "cpp",
+        "bitset": "cpp",
+        "complex": "cpp",
+        "limits": "cpp",
+        "memory": "cpp",
+        "functional": "cpp"
     }
 }
