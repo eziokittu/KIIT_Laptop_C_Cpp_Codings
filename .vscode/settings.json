@@ -9,6 +9,7 @@
         "vector": "cpp",
         "string": "cpp",
         "random": "cpp",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "iosfwd": "cpp"
     }
 }
