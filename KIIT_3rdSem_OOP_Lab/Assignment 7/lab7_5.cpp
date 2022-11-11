@@ -12,10 +12,12 @@ class Account {
         string number;
         string name;
         float balance;
-        Account(){
-            cout << "---Account Details---\nEnter account number : "; cin>>number;
-            cout <<"Enter account name : "; cin >> name;
-            balance = 0;
+        Account(string _num, string _name, int b){
+            number = _num;
+            name = _name;
+            balance = b;
+            cout <<"\nAccount name: "<<name<<", number: "<<number;
+            cout <<"\nRs"<<b<<" added as balance.";
         }
         void DepositMoney(float f){
             balance+=f;
@@ -27,12 +29,12 @@ class Account {
 };
 
 class Savings: public Account{
-    private:
-        float min = 1000; // minimum account balance is set to Rs 1000 [hardcoded]
     public:
-        Savings(){
-            cout <<"\nSavings Account Created! Rs1000 added as minimum balance.";
-            balance = 1000;
+        float min = 1000; // minimum account balance is set to Rs 1000 [hardcoded]
+        Savings(string _num, string _name, int b)
+        :Account(_num, _name, (b>=1000 ? b : 1000))
+        {
+            cout <<"\nSavings Account Created!";
         }
         void Withdraw(){
             if (balance <= min){
@@ -57,11 +59,12 @@ class Savings: public Account{
 };
 
 class Current: public Account{
-    private:
-        float over_due_amount;
     public:
-        Current(){
-            balance = 5000;
+        float over_due_amount = 5000;
+        Current(string _num, string _name, int b)
+        : Account(_num, _name, b)
+        {
+            cout <<"\nCurrent Account Created!";
         }
         void Withdraw(){
             float f;
@@ -85,22 +88,22 @@ class Current: public Account{
 };
 
 int main(){
-    Savings acc1;
-    Current acc2;
+    Savings acc1 ("SBI1001-saving", "Leonardo da Vinci", 900);
+    Current acc2 ("SBI1002-current", "Mark Zukerberg", 10000);
 
-    cout <<"\n\n\n----Savings Account----";
+    cout <<"\n\n----Savings Account----";
     acc1.DisplayBalance();
     acc1.DepositMoney(800);
-    acc1.DisplayBalance();
     acc1.DepositMoney(2200);
+    acc1.DisplayBalance();
     acc1.Withdraw();
     acc1.DisplayBalance();
 
-    cout <<"\n\n\n----Current Account----";
+    cout <<"\n\n----Current Account----";
     acc2.DisplayBalance();
     acc2.DepositMoney(100);
-    acc2.DisplayBalance();
     acc2.DepositMoney(10000);
+    acc2.DisplayBalance();
     acc2.Withdraw();
     acc2.DisplayBalance();
 

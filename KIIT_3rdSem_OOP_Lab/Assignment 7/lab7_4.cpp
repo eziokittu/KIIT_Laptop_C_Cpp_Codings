@@ -14,36 +14,43 @@
 using namespace std;
 
 class Student{
-    public:
+    protected:
         string name;
         int roll;
         int age;
-        Student(){
+        Student(string n, int r, int a){
+            name = n;
+            roll = r;
+            age = a;
         }
 };
 
 class Test: public Student{
     public: 
         float marks[5];
-        Test(){
+        Test(string n, int r, int a, float m[])
+            :Student(n, r, a){
+            for (int i=0; i<5; i++){
+                marks[i] = m[i];
+            }
         }
 };
 
 class Sports{
     public:
         float mark;
-        Sports(){
-            
+        Sports(float m){
+            mark = m;
         }
 };
 
 class Result: public Test, public Sports{
     float s=0;
     public:
-        Result(string _name, int _roll, int _age, float _marks[], float _mark){
-            name = _name;
-            age = _age;
-            roll = _roll;
+        Result(string n, int r, int a, float _marks[], float _mark) 
+        :Test(n, r, a, _marks), 
+        Sports(_mark)
+        {
             for (int i=0; i<5; i++) marks[i] = _marks[i];
             mark = _mark;
 
@@ -51,15 +58,18 @@ class Result: public Test, public Sports{
                 s+=marks[i];
             }
             s+= mark;
-            cout << "\nStudent '"<<name<<"' of roll-"<<roll<<", and age-"<<age<<"has result ----";
+            cout << "\nStudent '"<<name<<"' of roll-"<<roll<<", and age-"<<age<<", has result ----";
             cout << "\nTotal Sum = "<<s<<" out of 600.";
             cout << "\nPercentage = "<<s/6<<"%";
         }
 };
 
 int main(){
-    float marks_arr[5] = {98, 76.5, 87, 98.5, 94};
-    Result ("One Sided Lover", 22057025, 20, marks_arr, 75);
+    float s1_marks[5] = {98, 76.5, 87, 98.5, 94}, s1_mark = 75;
+    Result ("One Sided Lover", 22057025, 22, s1_marks, s1_mark);
+
+    float s2_marks[5] = {78, 87, 39, 57, 63}, s2_mark = 59;
+    Result ("Kitty Kiit", 22057020, 20, s1_marks, s2_mark);
 
     return 0;
 }
