@@ -36,9 +36,9 @@ class Distance {
             return (Distance){-this->feet, -this->inches};
         }
         void Display(){
-            inches += (feet-int(feet)) * (100/12); // taking only integer part from feet
-            feet += (inches/12);
-            inches = inches - int(inches)/12; // making inches value less than 12
+            inches += ((feet-int(feet)) * 12); // taking only integer part from feet
+            feet += int(inches/12);
+            inches = (inches - int(inches)) + int(inches)%12; // making inches value less than 12
             printf("\nDistance is %d feet and %.2f inches",int(feet), inches);
         }
 };

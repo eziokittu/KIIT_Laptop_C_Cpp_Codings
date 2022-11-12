@@ -23,25 +23,33 @@ class Time{
         }
         int operator==(Time &t){
             if (
-            this->hh == t.hh and
-            this->mm == t.mm and
+            this->hh == t.hh &&
+            this->mm == t.mm &&
             this->ss == t.ss
             ) return 1;
             else return 0;
         } 
-        Time& operator=(Time &t){ 
-            return t;
-        } 
+        Time& operator=(const Time &t){ 
+            if (this != &t)
+                hh = t.hh;
+                mm = t.mm;
+                ss = t.ss;
+            return *this;
+        }  
+        void SetTime(int s){
+            ss = s;
+            NormalTime();
+        }
         void NormalTime(){
             mm += ss/60;
             ss = ss%60;
             hh += mm/60;
             mm = mm%60;
             hh = hh % 24;
-        }
+        } 
         void Display(){
             printf("\nTime is : %d:%d:%d", hh, mm, ss);
-        } 
+        }
 };
 
 int main(){
@@ -53,8 +61,14 @@ int main(){
         cout << "\nBoth the times are equal";
     }
     else cout << "\nThe time is not same";
+
     Time t3(30,59,58);
     t3.Display();
     Time t4 = t3;
     t4.Display();
+    t3.SetTime(10000);
+    t3.Display();
+    t4.Display();
+
+    return 0;
 }
