@@ -1,0 +1,58 @@
+DSA Notes --- 14/11/2022
+
+Queue - is a data structure used to store data element with the restriction
+of FIFO or LILA. 2 pointers are used - Front and Delete. Insertion and deletion
+takes place from two differenrt ends
+
+-----------------------------------------------------------------------------
+------------------------------ Linear Queue ---------------------------------
+----- Queue ADT -----
+
+A. Declaration of data -
+    1. Space to store queue elements (using arrays or Linked Lists)
+    2. 2 pointers used front and rear
+
+B. Declaration of Operations -
+    1. Enqueue(x) - inserts an element into queue with the help of REAR pointers
+    2. Dequeue() - deletes the element into queue with the help of Front pointer.
+    3. IsEmpty() - returns if the queue is IsEmpty
+    4. IsFull() - returns if the queue is full or not.
+
+-------------------------- Applications of Queue -----------------------------
+1. Printer Spooler Daemon
+2. Job Scheduling
+3. Ticket Reservation
+4. Ready Queue Implementation
+
+------------------------------------------------------------------------
+Enqueue (Q, N, F, R, x) {
+    if (R == N-1) {
+        printf ("Overflow Condition!");
+        exit(1);
+    }
+    else if (R == -1){
+        F++;
+        R++;
+    }
+    else {
+        R++;
+    }
+    Q [R] = x;
+}
+
+Dequeue (Q, N, F, R){
+    int x;
+    if (F == -1){
+        printf("Underflow Condition!");
+        exit (1);
+    }
+    x = Q [F];
+    if (F==R){
+        // Last Data to be deleted
+        F = -1;
+        R = -1;
+    }
+    else F++;
+    return x;
+}
+-------------------------------------------------------------------------------

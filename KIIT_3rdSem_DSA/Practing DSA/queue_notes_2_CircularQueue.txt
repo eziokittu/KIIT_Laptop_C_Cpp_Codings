@@ -1,0 +1,54 @@
+DSA Notes - 14/11/2022
+
+-------------------- Disadvantages of Linear Queue ----------------------
+1. In the Implementation of Linear Queue, when the REAR pointer reaches to
+right most point i.e. n-1, and the Front pointer is somewhere in the middle
+then still it will show the Overflow Condition.
+2. Even though empty slots are available, we connot make use of them. To 
+avoid this problem, the concept of Circular Queue is used.
+
+Queue [10]
+________________________________________
+|_0_|_1_|_2_|_3_|_4_|_5_|_6_|_7_|_8_|_9_| F at pos 0, and at pos 9
+
+The stack is Full, now if DEQUEUE(), say delete 3 element
+________________________________________
+|___|___|___|_3_|_4_|_5_|_6_|_7_|_8_|_9_| Nowm F at 3, R at 9
+
+But still we cannot Enqueue. This is the problem.
+--------------------------------------------------------------------------
+
+---- Circular Queue ----
+Overflow condition - 
+(R == N-1 & F==0) || F = R+1;
+
+Enqueue_CQ(){
+    if ( (R+1) == F){
+        printf("Overflow Condition!");
+        exit(1);
+    }
+    else if (R==-1){
+        f++;
+        r++;
+    }
+    else 
+        R = (R+1) % n;
+    Q[R] = x;
+}
+
+Dequeue_CQ( Q, N, F, R){
+    int x;
+    if (F==-1){
+        printf("Underflow Condition!");
+        exit(1);
+    }
+    x = Q[F];
+    if (F==R){
+        F = -1;
+        R = -1;
+    }
+    else {
+        F = (F+1) % N;
+    }
+    return x;
+}

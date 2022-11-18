@@ -19,9 +19,12 @@ class Complex{
             real = r;
             imag = i;
         }
-        Complex(const Complex& c){
-            real = c.real;
-            imag = c.imag;
+        void GetData(){
+            cout << "\n---- Enter data for complex no. ----";
+            cout << "\nReal: ";
+            cin >> real;
+            cout << "Imag: ";
+            cin >> imag;
         }
         Complex operator+(Complex& c){
             return (Complex){this->real+c.real, this->imag+c.imag};
@@ -41,12 +44,18 @@ class Complex{
 };
 
 int main(){
-    Complex c1(32,-56);
+
+    Complex c1;
+    c1.GetData();
     c1.Display();
-    Complex c2(10,81);
+
+    Complex c2;
+    c2.GetData();
     c2.Display();
+
     Complex c3 = c1 + c2;
     c3.Display();
+    
     Complex c4 = c3++;
     c4.Display();
     c4 = ++c3;
