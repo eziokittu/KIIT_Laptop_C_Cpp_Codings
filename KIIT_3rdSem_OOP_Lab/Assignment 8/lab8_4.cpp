@@ -13,7 +13,6 @@ class MyString{
     public:
         MyString (){
             length=0;
-            str = new char(length+1);
         }
         MyString(char *s){
             length=strlen(s);

@@ -17,7 +17,7 @@ class Distance {
         Distance(){
             feet = 0;
             inches = 0;
-        };
+        }
         Distance(float f, float i){
             feet = f;
             inches = i;
@@ -35,6 +35,13 @@ class Distance {
         Distance operator-(){ // D3 = -D3
             return (Distance){-this->feet, -this->inches};
         }
+        void GetData(){
+            cout << "\n----Enter distance data ----";
+            cout << "\nFeet: ";
+            cin >> feet;
+            cout << "Inches: ";
+            cin >> inches;
+        }
         void Display(){
             inches += ((feet-int(feet)) * 12); // taking only integer part from feet
             feet += int(inches/12);
@@ -44,8 +51,10 @@ class Distance {
 };
 
 int main(){
-    Distance d1(6.5, 20);
-    Distance d2(100.1, 100.1);
+    Distance d1;
+    d1.GetData();
+    Distance d2;
+    d2.GetData();
     Distance d3 = d1 + d2; // binary operator overloaded (object + object)
     Distance d4 = d1 + 10; // binary operator overloaded (object + integer)
     Distance d5 = -d4; // Unary operator overloaded
