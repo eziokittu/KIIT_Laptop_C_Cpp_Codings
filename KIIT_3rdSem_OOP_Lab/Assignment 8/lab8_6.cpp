@@ -12,8 +12,8 @@ class Distance {
         float feet;
         float inches;
         Distance(){
-            feet = 0;
-            inches = 0;
+            cout <<"\nEnter feet and inches: ";
+            cin >> feet >> inches;
         };
         Distance(float f, float i){
             feet = f;
@@ -54,12 +54,12 @@ void Display(Distance d){
 }
 
 int main(){
-    Distance d1(5.75, 28.5);
-    cout << "\nd1 -- ";
+    Distance d1;
+    cout << "d1 -- ";
     Display(d1);
 
-    Distance d2(10.5,10);
-    cout << "\nd2 -- ";
+    Distance d2;
+    cout << "d2 -- ";
     Display(d2);
 
     Distance d3 = d1+d2; // operator '+' overloaded
