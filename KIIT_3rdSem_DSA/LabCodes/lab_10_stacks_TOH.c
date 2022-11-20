@@ -12,18 +12,23 @@ struct stackADT {
 
 typedef struct stackADT stack;
 
+void Display(stack *st){
+    printf("\n%c - ", st->name);
+    if (st->top == -1){
+        printf("[EMPTY]");
+        return;
+    }
+    for (int i=st->top; i>=0; i--){
+        printf("%d ",st->s[i]);
+    }
+}
+
 // Function to create Stack for the 1st time
 void CreateStack(stack *st, int s, char c){
     st->name = c;
     st->size = s;
     st->top = -1;
     st->s = (int*) malloc (st->size*sizeof(int));
-    // for (int i=1; i<=s; i++){
-    //     st->s[i-1] = i;
-    // }
-    st->s[0] = 1;
-    st->s[1] = 2;
-    st->s[2] = 3;
 }
 
 void Push(stack *st, int data){
@@ -31,8 +36,7 @@ void Push(stack *st, int data){
         printf("\nStack Overflow!");
     }
     else {
-        st->top++;
-        st->s[st->top] = data;
+        st->s[++(st->top)] = data;
     }
 }
 
@@ -46,13 +50,6 @@ int Pop(stack *st){
         x = st->s[st->top--];
     }
     return x;
-}
-
-void Display(stack st){
-    printf("\n%c - ", st.name);
-    for (int i=st.top; i>=0; i--){
-        printf("%d ",st.s[i]);
-    }
 }
 
 // Tower of Hanoi using Recursion
@@ -73,16 +70,24 @@ stack L, M, R;
 
 int main(){
     CreateStack(&L, disks, 'L');
+    for (int i=1; i<=disks; i++){
+        Push(&L, i);
+    }
     CreateStack(&M, disks, 'M');
     CreateStack(&R, disks, 'R');
 
-    Display(L);
-    Display(M);
-    Display(R);
+    printf("\n--- Printing Stack ---");
+    Display(&L);
+    Display(&M);
+    Display(&R);
+
+    printf("\n\n--- Tower of Hanoi Steps ---");
     TOH (&L, &M, &R, disks);
-    Display(L);
-    Display(M);
-    Display(R);
+
+    printf("\n\n--- Printing Stack ---");
+    Display(&L);
+    Display(&M);
+    Display(&R);
 
     return 0;
 }
