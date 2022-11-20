@@ -13,7 +13,6 @@ class MyClass {
     public:
         MyClass(int n, T a[]){
             size = n;
-            arr = new T(size);
             for (int i=0; i<size; i++){
                 arr[i] = a[i];
             }
@@ -42,12 +41,10 @@ class MyClass {
 
 int main()
 {
-    cout << "\n---- For integer array ----";
-    int arr1[5] = {3,1,9,2,8};
-	MyClass<int> obj1(5, arr1);
-    cout << "\n---- For char array ----";
-    char arr2[4] = {'d', 't', 'z', 'c'};
-	MyClass<int> obj2(5, arr2);
+    int arr1[10] = {3,1,9,2,8,11,7,6,4,5};
+	MyClass<int> obj1(10, arr1);
+    float arr2[4] = {7.4, 7.2, 7.9, 7.6};
+	MyClass<float> obj2(4, arr2);
 
     cout <<"----- Before Soring -----";
     obj1.Display();

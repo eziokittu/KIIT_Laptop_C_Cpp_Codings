@@ -6,14 +6,22 @@ using namespace std;
 
 void func(){
     float a, b;
-    cout << "\nEnter value for a nd b : ";
+    cout << "\nEnter value for a and b : ";
     cin >> a >> b;
     cout << a << "/" << b << " = ";
+    
     try{  
-        cout << a/b <<"---";
+        // if condition used to get a custom output otherwise div by 0 
+        // gives inf because new C++ compiler already handles the exception
+        if (b==0){
+            cout << "[Exception occurred]";
+            return;
+        }
+        cout << a/b ;
     }
-    catch(const std::exception& e){
-        cout << "[Division by Zero Exception]";
+    // unused code because new C++ compliers handle the exception by itself
+    catch (exception e) {
+        cout << "Exception occurred" << endl << e.what();
     }
 }
 
