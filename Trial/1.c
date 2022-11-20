@@ -1,15 +1,13 @@
 #include <stdio.h>
-
-struct A{
-    private:
-        int x;
-    public: 
-        int y;
-    A(){
-        printf("Object Created!\n");
-    }
-};
+#include <stdlib.h>
 
 int main(){
-    struct A a;
+    int *a;
+    a = (int*) malloc (5*sizeof(int));
+    for (int i=0; i<5; i++){
+        a[i] = i;
+    }
+    for (int i=0; i<10; i++){
+        printf("%d ", a[i]);
+    }
 }
