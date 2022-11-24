@@ -17,6 +17,10 @@ void AddMatrices(int a[4][4], int b[4][4]){
     return sum;
 }
 
+void AddSparceMatrices(int a[4][4], int b[4][4]){
+    
+}
+
 int main(){
     int a[4][4] = {
         {0,0,0,1},
