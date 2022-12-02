@@ -16,6 +16,7 @@
         "complex": "cpp",
         "limits": "cpp",
         "memory": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "ostream": "cpp"
     }
 }
