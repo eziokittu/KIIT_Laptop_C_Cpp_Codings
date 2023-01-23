@@ -26,11 +26,19 @@ int main(){
 
     cout <<"\n\n---- Bitwise OR operator ----\n";
     // compares to bits parallaly for 2 numbers
-    // and does the AND operation
+    // and does the OR operation
     a = 10; //1010
     b = 7;  //0111
     cout << "a = "<<a <<", b="<<b<<endl;
     cout << "a|b = "<<(a|b);
+
+    cout <<"\n\n---- Bitwise XOR operator ----\n";
+    // compares to bits parallaly for 2 numbers
+    // and does the XOR operation
+    a = 10; //1010
+    b = 7;  //0111
+    cout << "a = "<<a <<", b="<<b<<endl;
+    cout << "a^b = "<<(a^b); // 1101
 
     cout <<"\n\n---- Left Shift operator ----\n";
     a = 10; //1010
