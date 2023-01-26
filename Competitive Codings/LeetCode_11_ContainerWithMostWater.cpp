@@ -8,8 +8,12 @@
 
 using namespace std;
 
+int min(int a, int b){
+    if (a<b) return a;
+    else return b;
+}
 int maxArea(vector<int>& height) {
-    int area=0;
+    long area=0;
 
     // Time complexity = O(n^2)
     // for (int i=0; i<height.size()-1; i++){
@@ -23,21 +27,20 @@ int maxArea(vector<int>& height) {
     //     }
     // }
 
-    area = 0;
-    int diff = height.size()-1;
-    int i=0;
-    while (true){
-        for (int start=i; start+diff<=height.size(); start++){
-            int maxHeight = (height[start]>height[start+diff] ? height[start+diff] : height[start]);
-            cout <<"m"<< maxHeight<<" ";
-            int a = maxHeight * diff;
-            cout <<"a"<< a<<" ";
-            if (area < a) {
-                area = a;
-            }
-        }
-        diff--;
-        if (diff == height.size()/2) break;
+    int start=0, end=height.size()-1;
+    while (start<=end){
+        // calculating area
+        int a = min(height[start], height[end]) * (end-start);
+
+        // updating area
+        if (area < a)
+            area = a;
+
+        // loop constraints
+        if (height[start] < height[end]) 
+            start++;
+        else
+            end--;
     }
 
     return area;
