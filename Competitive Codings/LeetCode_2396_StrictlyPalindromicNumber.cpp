@@ -49,8 +49,8 @@ bool isStrictlyPalindromic(int n) {
 int main(){
     cout << "Strictly Palindromic? -";
     cout << "\n9 - "<<isStrictlyPalindromic(9);
-    cout << "\n4 - "<<isStrictlyPalindromic(9);
-    cout << "\n255 - "<<isStrictlyPalindromic(9);
-    cout << "\n1000 - "<<isStrictlyPalindromic(9);
-    cout << "\n123 - "<<isStrictlyPalindromic(9);
+    cout << "\n4 - "<<isStrictlyPalindromic(4);
+    cout << "\n255 - "<<isStrictlyPalindromic(255);
+    cout << "\n701 - "<<isStrictlyPalindromic(701);
+    cout << "\n123 - "<<isStrictlyPalindromic(123);
 }

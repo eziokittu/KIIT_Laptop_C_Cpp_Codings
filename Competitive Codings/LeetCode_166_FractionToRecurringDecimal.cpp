@@ -1,4 +1,4 @@
-// LeetCode Problem 69 - Fraction To Recurring Decimal
+// LeetCode Problem 166 - Fraction To Recurring Decimal
 // https://leetcode.com/problems/fraction-to-recurring-decimal/
 
 #include <iostream>
