@@ -17,6 +17,7 @@
         "limits": "cpp",
         "memory": "cpp",
         "functional": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "ratio": "cpp"
     }
 }
