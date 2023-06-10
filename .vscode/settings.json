@@ -18,6 +18,7 @@
         "memory": "cpp",
         "functional": "cpp",
         "ostream": "cpp",
-        "ratio": "cpp"
+        "ratio": "cpp",
+        "algorithm": "cpp"
     }
 }
