@@ -1,9 +1,12 @@
-#include<iostream>
-#include<vector>
-#include<map>
+// LeetCode Problem 5 - Longest Palindromic Substring
+// https://leetcode.com/problems/longest-palindromic-substring/
+#include <iostream>
+#include <vector>
+#include <map>
+
 using namespace std;
 
-int g_count=0; // remove
+int g_count;
 
 bool isPalindrome(string s){
     for (int i=0; i<s.size()/2; i++){
@@ -14,13 +17,10 @@ bool isPalindrome(string s){
     return true;
 }
 
-string getlongestPalindrome(string s, map<string, int>& m, int& length) {
+string getlongestPalindrome(string s, map<string, int>& m) {
     g_count++; // remove from code
     m[s]++;
     if (isPalindrome(s)){
-        if (length < s.size()){
-            length = s.size();
-        }
         return s;
     }
     string a="",b="";
@@ -31,21 +31,16 @@ string getlongestPalindrome(string s, map<string, int>& m, int& length) {
         b+=s[i];
     }
     string s1="";
-    if (a.size()>length){
-        m[a]++;
-        if (m[a]==1){
-            m[a]=0;
-            s1 = getlongestPalindrome(a, m, length);
-        }
+    m[a]++;
+    if (m[a]==1){
+        m[a]=0;
+        s1 = getlongestPalindrome(a,m);
     }
-    
     string s2="";
-    if (b.size()>length){
-        m[b]++;
-        if (m[b]==1){
-            m[b]=0;
-            s2 = getlongestPalindrome(b, m, length);
-        }
+    m[b]++;
+    if (m[b]==1){
+        m[b]=0;
+        s2 = getlongestPalindrome(b,m);
     }
     if (s1.size()<s2.size()){
         return s2;
@@ -54,9 +49,9 @@ string getlongestPalindrome(string s, map<string, int>& m, int& length) {
 }
 
 string longestPalindrome(string s) {
+    if (s.size()<2) return s;
     map<string, int> m;
-    int length=0;
-    return getlongestPalindrome(s, m, length);
+    return getlongestPalindrome(s, m);
 }
 
 int main(){
