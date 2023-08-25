@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-// brute force
+// brute force O(n^2) --> Time limit exceeded
 int findNoOfFactors(int n){
     int count=1; // the number is divisible by itself so +1
     for (int i=1; i<=n/2; i++){
@@ -18,7 +18,7 @@ int findNoOfFactors(int n){
 int bulbSwitch(int n) {
     if (n<2) return n;
     int c=0;
-    for (int i=1; i<n; i++){
+    for (int i=1; i<=n; i++){
         if (findNoOfFactors(i)%2==1){
             c++;
         }
@@ -27,6 +27,7 @@ int bulbSwitch(int n) {
 }
 
 int main() {
-    int n = 10;
+    // int n = 10;
+    int n = 99999; // 316
     cout << bulbSwitch(n);
 }
