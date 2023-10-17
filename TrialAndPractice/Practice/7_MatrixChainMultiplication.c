@@ -14,7 +14,7 @@
 int m[5][5];
 int s[5][5];
 
-void printMatrix(int mat[5][5], int n) {
+void printMatrix(int n, int mat[n][n]) {
     for (int i = 1; i < n; i++) {
         for (int j = 1; j < n; j++) {
             printf("%d ", mat[i][j]);
@@ -57,8 +57,12 @@ int MCM(int arr[], int n) {
 }
 
 int main() {
-    int arr[] = {1, 2, 3, 4, 5};
     int n = 5;
+    int arr[n];
+    printf("Enter the '%d' sizes for the arrays: ", n);
+    for (int i=0; i<n; i++){
+        scanf("%d", &arr[i]);
+    };
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -78,7 +82,7 @@ int main() {
     }
 
     printf("Printing the s table -\n");
-    printMatrix(s, n);
+    printMatrix(n, s);
 
     printf("Optimal Parenthesis Expression: ");
     printOptimalParenthesis(1, n - 1);
