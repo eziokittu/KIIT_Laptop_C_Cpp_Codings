@@ -4,41 +4,39 @@
 // INCOMPLETE
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 string convert(string s, int n) {
-    string temp = "";
-    int k = (s.length()-1)*2;
-
-    // iterating n times
+    if (n<2) return s;
+    vector<string> v;
     for (int i=0; i<n; i++){
-        // storing the letters row wise
-        int m=0;
-        bool running = true;
-        while (running) {
-            try{
-                temp += s[(m*k)+i];
-                if (i!=0 && s[(m*k)-i] >= 0){
-                    temp += s[(m*k)-i];
-                }
-                m++;
+        v.push_back("");
+    }
+    int k=0;
+    for (int i=0; i<s.size(); i+=(2*n)-2){ // iterating string
+        for (int j=0; j<n-1; j++){ // iterating up to down
+            if (k<s.size()){
+                v[j]+=s[k++];
             }
-            catch(exception e){
-                cout << "\nRow "<<i<< " Complete!";
-                running = false;
+        }
+        for (int j=n-1; j>0; j--){ // iterating down to up
+            if (k<s.size()){
+                v[j]+=s[k++];
             }
         }
     }
-    return temp;
-    // order for storing the elements
-    // for n = 4
-    // 0, 6, 12, ....           row 1
-    // 1, 5, 7, 11, 13, ....    row 2
-    // 2, 4, 8, 10, 14, ....    row 3
-    // 3, 9, 15, ....           row 4
+    string ans = "";
+    for (string str : v){
+        for (char i : str){
+            ans += i;
+        }
+    }
+    return ans;
 }
 
 int main(){
-    string s = "TomAndJerry";
-    cout << convert(s, 3);
+    cout << convert("paypalishiring", 3)<<"\n";
+    cout << convert("paypalishiring", 4)<<"\n";
+    cout << convert("a", 1)<<"\n";
 }
