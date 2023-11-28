@@ -1,3 +1,6 @@
+// Leetcode Problem 236 - Implement Queue using Stack
+// https://leetcode.com/problems/implement-queue-using-stacks/
+
 #include <iostream>
 
 using namespace std;
