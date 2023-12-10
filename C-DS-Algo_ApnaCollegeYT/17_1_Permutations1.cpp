@@ -11,13 +11,16 @@ void permutation(vector<int>& nums, vector<vector<int>>& ans, int idx){
     }
     for (int i=idx; i<nums.size(); i++){
         swap(nums[i], nums[idx]);
+        // cout <<"\nFor i="<<i<<", idx="<<idx<<", ";
+        // cout <<"Called :";
+        // for (auto k : nums) cout<<k<<" ";
         permutation(nums, ans, idx+1);
         swap(nums[i], nums[idx]);
     }
 }
 
 int main(){
-    vector<int> nums = {1,2,3};
+    vector<int> nums = {1,2,3,4,5};
     vector<vector<int>> ans;
     permutation(nums, ans, 0);
     cout<<"Permutations for the sequence ";

@@ -15,9 +15,6 @@ int LCS_1(char x[], char y[], int i, int j) {
     if (x[i]==y[j]){
         return 1+ LCS_1(x, y, i+1, j+1);
     }
-    else{
-        return max_of(LCS_1(x, y, i+1, j), LCS_1(x, y, i, j+1));
-    }
 }
 
 // LCS with memorization
