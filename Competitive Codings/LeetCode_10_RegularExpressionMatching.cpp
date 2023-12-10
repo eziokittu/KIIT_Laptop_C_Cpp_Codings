@@ -3,139 +3,78 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 
 using namespace std;
 
-bool isValid(string s, vector<vector<char>>& possible, int i, int state){
-    while (i<s.size()){
-        // states out of bounds but string s still continues
-        if (state>=possible.size()){
+// this section needs change
+bool check(string s, map<int, vector<int>> &m, int i, int j){
+    if (s.size()==i && m.size()==j){
+        return true;
+    }
+    if (m[j][1]==-1){
+        j++;
+    }
+    if (s[i] == (char)m[j][0]){
+        if (m[j][1]>1){
+            m[j][1]--;
+        }
+        else if (m[j][1]==1){
+            m[j][1]=-1; // deleted
+        }
+        else if (m[j][1]==0){
+            check(s, m, i+1, j);
+        }
+        // never executed
+        else{
             return false;
         }
-        // when the single character must be present
-        if (possible[state][1]=='1'){
-            if (possible[state][0]==s[i] || possible[state][0]=='.'){
-                state++;
-                i++;
-            } 
-            else{
-                return false;
-            }
+    }
+    else {
+        if (m[j][1]==0){
+            return check(s, m, i+1, j+1);
         }
-        // when the character has any length and may not be present
-        else if (possible[state][1]=='*'){
-            // in the form a* and string matches
-            if (possible[state][0]==s[i] && possible[state][0]!='.'){
-                i++;
-            }
-            // in the form .*
-            // else if (possible[state][0]=='.'){
-                // not sure what to do - will get very length
-                // i++;
-                // state++;
-                // return isValid(s, possible, i, state);
-                // state++;
-                // return isSpecialValid(s, possible, i, state);
-            // }
-            // in the form a* but s does not match so proceed to next state
-            else if (possible[state][0]!=s[i]){
-                state++;
-            }
+        else {
+            return false;
         }
     }
     return true;
 }
 
+// this section of code is good
 bool isMatch(string s, string p) {
-    vector<vector<char>> possible; // gathering all character and their occurences in p
-    int i=0;
-    while (i<p.size()){
-        if (p[i]=='.'){
-            char ch = '.';
-            char num = '1'; // only 1 character
-            if (p[i+1]=='*'){
-                num = '*'; // all length possible including nothing(null)
-                i+=2;
-            }
-            else{
-                i++;
-            }
-            possible.push_back({ch, num});
+    map<int, vector<int>> m;
+    int k=0;
+    char temp=p[0];
+    m[k]={temp, 1};
+    for (int i=1; i<p.size(); i++){
+        if (p[i]==temp){
+            m[k][1]++;
         }
-        else if (p[i]-'a'>=0 && p[i]-'a'<26){
-            char ch = p[i];
-            char num = '1'; // only 1 character
-            if (p[i+1]=='*'){
-                num = '*';
-                i+=2;
+        else {
+            if (p[i]=='*'){
+                if (m[k][1]>1){
+                    m[k][1]--;
+                    m[++k] = {temp, 0};
+                    continue;
+                }
+                m[k][1]=0; // 0 represented as *
+                continue;
             }
-            else{
-                i++;
-            }
-            possible.push_back({ch, num});
-        }
-    }  
-
-    vector<vector<char>> myString; // gathering all character and their occurences in s
-    i=0;
-    while (i<s.size()){
-        if (s[i]=='.'){
-            char ch = '.';
-            char num = '1'; // only 1 character
-            if (s[i+1]=='*'){
-                num = '*'; // all length possible including nothing(null)
-                i+=2;
-            }
-            else{
-                i++;
-            }
-            possible.push_back({ch, num});
-        }
-        else if (s[i]-'a'>=0 && s[i]-'a'<26){
-            char ch = s[i];
-            char num = '1'; // only 1 character
-            if (s[i+1]=='*'){
-                num = '*';
-                i+=2;
-            }
-            else{
-                i++;
-            }
-            possible.push_back({ch, num});
-        }
-    }  
-
-    // printing
-    // for (auto i : possible){
-    //     cout << i[0] << " "<<i[1]<<endl;
-    // }
-    // cout << "\n";
-    // for (auto i : myString){
-    //     cout << i[0] << " "<<i[1]<<endl;
-    // }
-    // cout << "\n";
-    bool hasSpecial = false;
-    for (auto i : possible){
-        if ((i[0]=='.') && (i[1]=='*')){
-            hasSpecial = true;
+            temp = p[i];
+            m[++k]={temp, 1};
         }
     }
-
-    if (hasSpecial==false) {
-        return isValid(s, possible, 0, 0);
+    cout << "\nPrinting the Language:\n";
+    for (auto i=m.begin(); i!=m.end(); i++){
+        cout << i->first<<": "<<(char)i->second[0] << " "<<i->second[1]<<"\n";
     }
-    
-    for (int i=0; i<possible.size();){
-        if ((possible[i][0]=='.') && (possible[i][1]=='*')){
-            possible.erase(possible.begin()+i);
-        }
-        else i++;
-    }
-    return false;
+    return check(s, m, 0, 0);
 }
 
 int main(){
     cout << isMatch("abccd", "aa*b*ccd*");
+    cout << isMatch("aa", "a*bbbdb*cda*b.*a");
     // cout << isMatch("aa", "ab*a");
     // cout << isMatch("aa", "a");
     // cout << isMatch("aa", "ab*.");
