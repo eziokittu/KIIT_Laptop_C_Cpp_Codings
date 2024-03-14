@@ -68,3 +68,24 @@ int main()
 
 11111
 */
+
+// int Fact(int n, int limit){
+//     if (n<=limit) return 1;
+//     return n*Fact(n-1, limit);
+// }
+
+// int Permutation(int n, int r){
+//     return ( (Fact(n, n-r)) / (Fact(n-r, 1)) );
+// }
+
+// int climbStairs(int n) {
+//     int a = n/2; // no of steps of size 2
+//     int b = n - (2*a); // no of steps of size 1
+//     int ans = 0;
+//     while (a>=0){
+//         ans += Permutation(a+b, b);
+//         a-=1;
+//         b+=2;
+//     }
+//     return ans+1;
+// }
