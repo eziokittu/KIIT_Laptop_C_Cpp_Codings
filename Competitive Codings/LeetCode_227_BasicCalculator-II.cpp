@@ -2,90 +2,120 @@
 // https://leetcode.com/problems/basic-calculator-ii/
 #include <iostream>
 #include <vector>
-#include <map>
-
+#include <algorithm>
 using namespace std;
-
-void extractNumbers(string s, vector<char>& ops, vector<int>& nums){
-    int temp=-1;
-    for (auto c : s){
-        if (c-'0'>=0 && c-'0'<=9){
-            if (temp==-1)temp=0;
-            temp=(temp*10)-'0';
-            temp+=c;
+float getIntFromString(string s){
+        float num = 0;
+        for (int i=0; i<s.size(); i++){
+            num = num*10 + s[i]-'0';
+            // cout << "num = "<<num<<endl;
         }
-        else{
-            if (temp!=-1){
-                nums.push_back(temp);
-                temp=-1;
-                if (c!=' ')
-                ops.push_back(c);
+        return num;
+    }
+
+    void tokenization(vector<float> &nums, vector<char>& ops, string s){
+        string temp = "";
+        for (int i=0; i<s.size(); i++){
+            if (s[i]>='0' && s[i]<='9'){
+                temp += s[i];
+            }
+            else if (s[i]=='-' || s[i]=='+' || s[i]=='*' || s[i]=='/'){
+                ops.push_back(s[i]);
+                if (temp!=""){
+                    nums.push_back(getIntFromString(temp));
+                    temp = "";
+                }
+            }
+            else if (temp!=""){
+                nums.push_back(getIntFromString(temp));
+                temp = "";
             }
         }
-    }
-    if (temp!=-1){
-        nums.push_back(temp);
-    }
-}
-int calculate(string s) {
-    string str ="";
-    for (char c:s){
-        if (c!=' ')
-            str+=c;
-    }
-    if (str=="0") return 0;
-    vector<char> ops;
-    vector<int> nums;
-    extractNumbers(str, ops, nums);
-    // cout<<nums[0]<<endl;
-    // for mul and div
-    for (int i=0; i<ops.size();){
-        int d;
-        if (ops[i]=='/'){
-            d = nums[i]/nums[i+1];
-            nums.erase(nums.begin()+i);
-            nums[i]=d;
-            ops.erase(ops.begin()+i);
-        }
-        else if (ops[i]=='*'){
-            d = nums[i]*nums[i+1];
-            nums.erase(nums.begin()+i);
-            nums[i]=d;
-            ops.erase(ops.begin()+i);
-        }
-        else{
-            i++;
+        if (temp!=""){
+            nums.push_back(getIntFromString(temp));
+            temp = "";
         }
     }
-    // for add and sub
-    for (int i=0; i<ops.size();){
-        int d;
-        if (ops[i]=='+'){
-            d = nums[i]+nums[i+1];
-            nums.erase(nums.begin()+i);
-            nums[i]=d;
-            ops.erase(ops.begin()+i);
-        }
-        else if (ops[i]=='-'){
-            d = nums[i]-nums[i+1];
-            nums.erase(nums.begin()+i);
-            nums[i]=d;
-            ops.erase(ops.begin()+i);
-        }
-    }
-    return nums[0];
-}
+    int calculate(string s) { 
+        vector<float> nums;
+        vector<char> ops;
+        tokenization(nums, ops, s);
 
+        // for (auto i : nums){
+        //     cout << i << " ";
+        // }cout<<endl;
+        // for (auto i : ops){
+        //     cout << i << " ";
+        // }cout<<endl;
+
+        long long ans;
+        for(int i=0; i<ops.size(); ){
+            if (ops[i]=='/'){
+                if (nums[i+1]!=0)
+                    nums[i] = nums[i]/nums[i+1];
+                else
+                    nums[i] = 0;
+                nums.erase(nums.begin()+i+1);
+                ops.erase(ops.begin()+i);
+            }
+            else 
+                i++;
+        }
+
+        for (auto i : nums){
+            cout << i << " ";
+        }cout<<endl;
+        for (auto i : ops){
+            cout << i << " ";
+        }cout<<endl;
+
+        for(int i=0; i<ops.size(); ){
+            if (ops[i]=='*'){
+                nums[i] = nums[i]*nums[i+1];
+                nums.erase(nums.begin()+i+1);
+                ops.erase(ops.begin()+i);
+            }
+            else 
+                i++;
+        }
+
+        for (auto i : nums){
+            cout << i << " ";
+        }cout<<endl;
+        for (auto i : ops){
+            cout << i << " ";
+        }cout<<endl;
+
+        for (float &i : nums){
+            i = (int)i;
+        }
+
+        for(int i=0; i<ops.size(); ){
+            if (ops[i]=='-'){
+                nums[i] = nums[i]-nums[i+1];
+                nums.erase(nums.begin()+i+1);
+                ops.erase(ops.begin()+i);
+            }
+            else 
+                i++;
+        }
+        for(int i=0; i<ops.size(); ){
+            if (ops[i]=='+'){
+                nums[i] = nums[i]+nums[i+1];
+                nums.erase(nums.begin()+i+1);
+                ops.erase(ops.begin()+i);
+            }
+            else 
+                i++;
+        }
+        return nums[0];
+    }
 int main()
 {
-    cout<<calculate("1+1+55")<<endl;
-    cout<<calculate("0")<<endl;
-    cout<<calculate("0+0")<<endl;
-    cout<<calculate("2147483647")<<endl;
-    cout<<calculate("0-2147483647")<<endl;
-    cout<<calculate("3+5 / 2 ")<<endl;
-    cout<<calculate("    3/2    ")<<endl;
-    cout<<calculate("3+2*2")<<endl;
+    // std::cout<<calculate("3 + 5 / 2 ");
+    // std::cout<<calculate("2147483647");
+    std::cout<<calculate("1+2*5/3+6/4*2");
+    // std::cout<<calculate("4568+1276*3/2-27*4*9*2+4956/6");
 
     return 0;
 }
