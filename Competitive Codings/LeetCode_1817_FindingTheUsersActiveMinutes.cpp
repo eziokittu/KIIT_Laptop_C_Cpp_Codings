@@ -33,13 +33,15 @@ void print3(vector<vector<int>> v){
 }
 
 void removeDuplicates(vector<vector<int>> &v){
-    int a = v[0][0], b=v[0][1];
-    for (int i=1; i<v.size(); ){
-        if ((v[i][0]==a) && (v[i][1]==b)){
-            v.erase(v.begin()+i);
-        }
-        else {
-            i++;
+    int n = v.size();
+    if (n <= 1) // If there are 0 or 1 elements, no duplicates to remove
+        return;
+    for (int i = 1; i < n; ) {
+        if ((v[i][1] == v[i - 1][1]) && (v[i][0] == v[i - 1][0])) {
+            v.erase(v.begin() + i); // Remove duplicates
+            n--; // Decrement the size since we removed an element
+        } else {
+            i++; // Move to the next element
         }
     }
 }
