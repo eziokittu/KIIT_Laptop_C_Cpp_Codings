@@ -54,6 +54,9 @@ bool isMatch(string s, string p) {
         cout << i.first << " " << i.second << "\n";
     }
     cout << endl;
+    if (s[s.size()-1] != states[states.size()-1].first && states[states.size()-1].first!='.'){
+        return false;
+    }
     return isPossible(s, states, 0, 0);
 }
     
