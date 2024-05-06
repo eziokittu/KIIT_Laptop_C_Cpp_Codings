@@ -3,84 +3,63 @@
 
 #include <iostream>
 #include <vector>
-#include <map>
-
 using namespace std;
 
-// this section needs change
-bool check(string s, map<int, vector<int>> &m, int i, int j){
-    if (s.size()==i && m.size()==j){
-        return true;
-    }
-    if (m[j][1]==-1){
-        j++;
-    }
-    if (s[i] == (char)m[j][0]){
-        if (m[j][1]>1){
-            m[j][1]--;
-        }
-        else if (m[j][1]==1){
-            m[j][1]=-1; // deleted
-        }
-        else if (m[j][1]==0){
-            check(s, m, i+1, j);
-        }
-        // never executed
-        else{
-            return false;
-        }
-    }
-    else {
-        if (m[j][1]==0){
-            return check(s, m, i+1, j+1);
+vector<pair<char, char>> getStates (string p){
+    vector<pair<char, char>> states;
+    char temp = '0';
+    for (int i=0; i<p.size(); i++){
+        if (p[i]=='*'){
+            states.push_back({temp, '2'});
+            temp = '0';
         }
         else {
-            return false;
-        }
-    }
-    return true;
-}
-
-// this section of code is good
-bool isMatch(string s, string p) {
-    map<int, vector<int>> m;
-    int k=0;
-    char temp=p[0];
-    m[k]={temp, 1};
-    for (int i=1; i<p.size(); i++){
-        if (p[i]==temp){
-            m[k][1]++;
-        }
-        else {
-            if (p[i]=='*'){
-                if (m[k][1]>1){
-                    m[k][1]--;
-                    m[++k] = {temp, 0};
-                    continue;
-                }
-                m[k][1]=0; // 0 represented as *
-                continue;
+            if (temp!='0') {
+                states.push_back({temp, '1'});
             }
             temp = p[i];
-            m[++k]={temp, 1};
         }
     }
-    cout << "\nPrinting the Language:\n";
-    for (auto i=m.begin(); i!=m.end(); i++){
-        cout << i->first<<": "<<(char)i->second[0] << " "<<i->second[1]<<"\n";
+    if (temp!='0') {
+        states.push_back({temp, '1'});
     }
-    return check(s, m, 0, 0);
+    return states;
 }
 
-int main(){
-    cout << isMatch("abccd", "aa*b*ccd*");
-    cout << isMatch("aa", "a*bbbdb*cda*b.*a");
-    // cout << isMatch("aa", "ab*a");
-    // cout << isMatch("aa", "a");
-    // cout << isMatch("aa", "ab*.");
+bool isPossible (string s, vector<pair<char, char>> states, int c, int state){
+    if (c==s.size()-1 && state==states.size()-1){
+        cout << "DEBUG: "<<c<<" "<<state<<endl;
+        return true;
+    }
+    if (states[state].first=='.' || s[c] == states[state].first){
+        bool ret1=false, ret2=false;
+        if (c<s.size()-1 && state<states.size()-1){
+            ret1 = isPossible(s, states, c+1, state+1);
+        }
+        if (states[state].second=='2' && c<s.size()-1){
+            ret2 = isPossible(s, states, c+1, state);
+        }
+        cout << "For c = "<<c<<", state = "<<state<< "\n";
+        return (ret1 || ret2);
+    }
+    else if (states[state].second=='2' && states[state].first!=s[c] && state<states.size()-1){
+        return isPossible(s, states, c, state+1);
+    }
+    return false;
+}
 
-    // special case
-    // cout << isMatch("aabcdefghadcabcd", ".*ab*dc*a.*"); 
-    cout << isMatch("abcac", ".*ca");// a1 b1 c1 a1 c1 - .2 c1 a1
+bool isMatch(string s, string p) {
+    vector<pair<char, char>> states = getStates(p);
+    for (auto i : states){
+        cout << i.first << " " << i.second << "\n";
+    }
+    cout << endl;
+    return isPossible(s, states, 0, 0);
+}
+    
+int main()
+{
+    cout << isMatch("ab", ".*c");
+
     return 0;
 }
