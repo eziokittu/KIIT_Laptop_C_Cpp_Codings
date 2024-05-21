@@ -27,22 +27,29 @@ vector<pair<char, char>> getStates (string p){
 }
 
 bool isPossible (string s, vector<pair<char, char>> states, int c, int state){
+    cout << "For c = "<<c<<"/"<<s.size()-1<<" ,"<< "state = "<<state<<"/"<<states.size()-1<<"\n";
     if (c==s.size()-1 && state==states.size()-1){
         cout << "DEBUG: "<<c<<" "<<state<<endl;
         return true;
     }
     if (states[state].first=='.' || s[c] == states[state].first){
         bool ret1=false, ret2=false;
+
+        // next state
         if (c<s.size()-1 && state<states.size()-1){
             ret1 = isPossible(s, states, c+1, state+1);
         }
+
+        // same state repeated
         if (states[state].second=='2' && c<s.size()-1){
             ret2 = isPossible(s, states, c+1, state);
         }
-        cout << "For c = "<<c<<", state = "<<state<< "\n";
+
+        // cout << "For c = "<<c<<", state = "<<state<< "\n";
         return (ret1 || ret2);
     }
-    else if (states[state].second=='2' && states[state].first!=s[c] && state<states.size()-1){
+    else if (states[state].second=='2' && state<states.size()-1){
+        // cout << "For c = "<<c<<", state = "<<state<< "\n";
         return isPossible(s, states, c, state+1);
     }
     return false;
@@ -54,15 +61,12 @@ bool isMatch(string s, string p) {
         cout << i.first << " " << i.second << "\n";
     }
     cout << endl;
-    if (s[s.size()-1] != states[states.size()-1].first && states[states.size()-1].first!='.'){
-        return false;
-    }
     return isPossible(s, states, 0, 0);
 }
     
 int main()
 {
-    cout << isMatch("ab", ".*c");
+    cout << isMatch("a", "ab*");
 
     return 0;
 }
