@@ -4,7 +4,7 @@
 
 using namespace std;
 
-static int functionCallCount = 0;
+static int functionCallCount = -1;
 
 struct Node {
   public:
