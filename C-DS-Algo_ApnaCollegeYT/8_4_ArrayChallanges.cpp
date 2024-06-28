@@ -2,22 +2,16 @@
 
 using namespace std;
 
-int main()
-{
-    cout << "Enter size of the array : ";
+// finding the max element up till arr[i] where i ranges from 0 to n
+void Problem1(){
     int n;
     cin >> n;
-    int arr[n];
 
-    // entering elements in the array
-    cout << "\nEnter elements in the array ---- \n";
-    for (int i=0; i<n; i++)
-    {
-        cout << "Element [" << i << "] : ";
+    int arr[n];
+    for (int i=0; i<n; i++){
         cin >> arr[i]; 
     }
 
-    // finding the max element up till arr[i] where i ranges from 0 to n
     int arr2[n];
     int pos = 0;
     int max = arr[0];
@@ -36,6 +30,33 @@ int main()
     {
         cout << arr2[i] << " ";
     }
+}
 
-    return 0;
+// Sum of all sub arrays
+void Problem2(){
+    int n;
+    cin>>n;
+    int arr[n];
+    for (int i=0; i<n; i++){
+        cin >> arr[i];
+    }
+    int sum = 0;
+    for (int i=0; i<n; i++){
+        int temp = 0;
+        for (int j=i; j<n; j++){
+            temp += arr[j];
+            sum+=temp;
+        }
+    }
+    cout<<sum;
+}
+
+// Longest Arithmetic SubArray
+void Problem3(){
+    
+}
+
+int main() {
+    // Problem1();
+    Problem2();
 }
