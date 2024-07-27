@@ -14,7 +14,7 @@ void PrintArray(vector<int> arr){
 int Partition(vector<int> &arr, int left, int right){
   int i=left+1, j=right;
   int pivot = left;
-  while (i<j){
+  while (i<=j){
     while (i <= j && arr[i] <= arr[pivot]) {
       i++;
     }
@@ -48,7 +48,8 @@ void QuickSort(vector<int> &arr, int left, int right){
 }
 
 int main() {
-  vector<int> arr = {3,9,2,7,6,8,1,4,5};
+  vector<int> arr = {5,2,3,1};
+  // vector<int> arr = {3,9,2,7,6,8,1,4,5};
   cout <<"\nBefore Quick Sort:";
   PrintArray(arr);
 
