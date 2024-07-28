@@ -53,6 +53,8 @@ void InsertAtBottom(stack<int> &st, int element) {
   int topElement = st.top();
   st.pop();
   InsertAtBottom(st, element);
+
+  st.push(topElement);
 }
 
 void ReverseAStack_Recursive(stack<int> &st){
@@ -63,6 +65,37 @@ void ReverseAStack_Recursive(stack<int> &st){
   st.pop();
   ReverseAStack_Recursive(st);
   InsertAtBottom(st, element);
+}
+
+bool CheckBalancedParenthesis(string s){
+  stack<char> st;
+  for (char c : s){
+
+    // PUSH
+    if (c=='(' || c=='[' || c=='{'){
+      st.push(c);
+    }
+
+    // POP
+    else {
+      if (st.top()=='(' && c==')'){
+        st.pop();
+      }
+      else if (st.top()=='[' && c==']'){
+        st.pop();
+      }
+      else if (st.top()=='{' && c=='}'){
+        st.pop();
+      }
+      else {
+        return false;
+      }
+    }
+  }
+  if (st.empty()){
+    return true;
+  }
+  return false;
 }
 
 void test1() {
@@ -93,8 +126,15 @@ void test3() {
   DisplayStack(st);
 }
 
+void test4 () {
+  string s1 = "[({[[{(())}]]})]";
+  string s2 = "[({[[{(())}]]})](";
+  cout << "string has a valid parenthesis? "<<CheckBalancedParenthesis(s2);
+}
+
 int main () {
   // test1();
   // test2();
-  test3();
+  // test3();
+  test4();
 }
