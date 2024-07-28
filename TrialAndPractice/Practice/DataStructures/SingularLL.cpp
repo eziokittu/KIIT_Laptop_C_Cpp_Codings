@@ -540,8 +540,19 @@ Node* MergeTwoSortedLinkedLists_Recursive(Node *head1, Node *head2){
 }
 
 Node* PutEvenPositionNodesAfterOddPositionNodes(Node *head){
-  Node *p = new Node();
-  
+  if (head==nullptr || head->next==nullptr || head->next->next==nullptr){
+    return head;
+  }
+  Node *odd = head, *even=head->next, *evenStart=head->next;
+
+  while (odd->next!=nullptr && even->next!=nullptr){
+    odd->next = even->next;
+    odd = odd->next;
+    even->next = odd->next;
+    even = even->next;
+  }
+  odd->next = evenStart;
+  return head;
 }
 
 void test1(){
@@ -609,8 +620,10 @@ void test3() {
 }
 
 void test4() {
-  LinkedList ll1 = LinkedList({1,2,3,4,5,6,7});
+  LinkedList ll1 = LinkedList({1,2,3,4,5,6,7,8});
   ll1.PrintLinkedList();
+  Node *alteredNode = PutEvenPositionNodesAfterOddPositionNodes(ll1.root);
+  PrintLinkedList(alteredNode);
 }
 
 int main() {
