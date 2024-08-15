@@ -7,15 +7,15 @@ int max_of (int a, int b){
 }
 
 // LCS without Memorization
-int LCS_1(char x[], char y[], int i, int j) {
-    if (x[i]==0 || y[j]==0){
-        // printf("--x[%d]=%c, x[%d]=%c, %d\n", i, x[i], j, y[j], (x[i]==0));
-        return 0;
-    }
-    if (x[i]==y[j]){
-        return 1+ LCS_1(x, y, i+1, j+1);
-    }
-}
+// int LCS_1(char x[], char y[], int i, int j) {
+//     if (x[i]==0 || y[j]==0){
+//         // printf("--x[%d]=%c, x[%d]=%c, %d\n", i, x[i], j, y[j], (x[i]==0));
+//         return 0;
+//     }
+//     if (x[i]==y[j]){
+//         return 1+ LCS_1(x, y, i+1, j+1);
+//     }
+// }
 
 // LCS with memorization
 int LCS_2(char x[], char y[], int m, int n, int z[m+1][n+1]){
@@ -58,7 +58,7 @@ int main() {
     int l2 = strlen(s2);
     int m[l1+1][l2+1];
 
-    printf("Max length of sub sequence (using LCS_1): %d\n", LCS_1(s1, s2, 0, 0));
+    // printf("Max length of sub sequence (using LCS_1): %d\n", LCS_1(s1, s2, 0, 0));
     printf("Max length of sub sequence (using LCS_2): %d\n", LCS_2(s1, s2, l1, l2, m));
 
     return 0;

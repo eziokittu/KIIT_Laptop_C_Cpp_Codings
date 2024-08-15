@@ -28,7 +28,6 @@ vector<vector<int>> permutation(vector<int>& nums){
 int main(){
     vector<int> nums = {1,1,2};
     vector<vector<int>> ans = permutation(nums);
-    cout<<"are :\n";
     for (auto v:ans){
         for (auto i:v){
             cout<<i<<" ";
